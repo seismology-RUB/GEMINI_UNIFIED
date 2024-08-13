@@ -1,0 +1,51 @@
+#------------------------------------------------------------------------
+#  computeSyntheticsForSpecfemCoupling:
+#------------------------------------------------------------------------
+#  only compute spectra, do not transform to time domain
+#
+  COMPUTE_SPECTRA = .true.
+#-----------------------------------------------------------------------  
+#  File with meta data for Green FK Spectra
+#
+  FILE_GFK_META = GEMINI/gfk-fmax02-global-prem-slow01-tlen2100.meta
+#-----------------------------------------------------------------------
+#  Name of output file of computeGreenFKSpectraForASKI
+#  with Green functions in the frequency-wavenumber domain. 
+#  Provide base path name. Base name will be extended by source radius index.
+#
+  BASE_GFK_DATA = GEMINI/gfk-fmax02-global-prem-slow01-tlen2100.MOMENT
+#------------------------------------------------------------------------
+#  File where synthetic seismograms or synthetic spectra are stored.
+#
+  FILE_SYNTHETICS = GEMINI/specfem_coupling_spectra.hdf
+#------------------------------------------------------------------------
+#  Name of event list file including full path
+#
+  FILE_EVENT_LIST = ASKI_events
+#-------------------------------------------------------------------------
+#  File with boundary point information
+#
+  FILE_SPECFEM_BOUNDARIES = specfem_boundary_data.hdf
+#-------------------------------------------------------------------------
+#  File with ray tables for calculating travel times
+#
+  FILE_RAY_TABLE = GEMINI/ray-table-P-ntp444-nr120-dr5.hdf
+#-------------------------------------------------------------------------
+#  Buffer before arrival time applied when left-shifting seismograms (in s)
+# 
+  TIME_SHIFT_BUFFER = 30
+#-------------------------------------------------------------------------
+#  Length of time window for considered phase (in s)
+#
+  TIME_WINDOW_LENGTH = 300
+#-------------------------------------------------------------------------
+#  Information specifying the way the filter is computed.
+#  "EVENT_FILTER_TYPE" contains a keyword for the algorithm.
+#  "EVENT_FILTER_SPECS" contains a real array with necessary data.
+#  Here, it is order and corner frequency (Hz) for highpass and lowpass,
+#  respectively.
+#  Not used if COMPUTE_SPECTRA = .true.
+#
+  EVENT_FILTER_TYPE =  BUTTERWORTH_BANDPASS
+  EVENT_FILTER_SPECS =  2.0 0.005 10.0 0.1000
+#------------------------------------------------------------------------

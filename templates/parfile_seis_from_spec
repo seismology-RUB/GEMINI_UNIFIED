@@ -1,0 +1,20 @@
+#------------------------------------------------------------------------
+#  computeSeismogramsFromSpectraForSpecfemCoupling:
+#------------------------------------------------------------------------
+#  Name of output file of computeSyntheticsForSpecfemCoupling
+#
+  FILE_SPECTRA = GEMINI/specfem_coupling_spectra.hdf
+#------------------------------------------------------------------------
+#  File where synthetic seismograms are stored.
+#
+  FILE_SYNTHETICS = GEMINI/specfem_coupling_synthetics.hdf
+#-------------------------------------------------------------------------
+#  Information specifying the way the filter is computed.
+#  "EVENT_FILTER_TYPE" contains a keyword for the algorithm.
+#  "EVENT_FILTER_SPECS" contains a real array with necessary data.
+#  Here, it is order and corner frequency (Hz) for highpass and lowpass,
+#  respectively.
+#
+  EVENT_FILTER_TYPE =  BUTTERWORTH_BANDPASS
+  EVENT_FILTER_SPECS =  2.0 0.005 10 0.0904
+#-------------------------------------------------------------------------

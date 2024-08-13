@@ -1,0 +1,73 @@
+# ===============================================================================
+#  Template parameter file for GFDSVSEIS
+# ===============================================================================
+#----------------------------------------------------------------------------
+#   Copyright 2016 Wolfgang Friederich (Ruhr-Universitaet Bochum, Germany)
+#
+#   This file is part of GEMINI_UNIFIED version 1.0.
+#
+#   GEMINI_UNIFIED version 1.0 is free software: you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation, either version 2 of the License, or
+#   (at your option) any later version.
+#
+#   GEMINI_UNIFIED version 1.0 is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with GEMINI_UNIFIED version 1.0.  If not, see <http://www.gnu.org/licenses/>.
+#------------------------------------------------------------------------
+#  GFDSVSEIS parameter file template
+#------------------------------------------------------------------------
+#  Base name for output file of GFDSV with Green functions in the
+#  frequency-wavenumber domain. Provide full path and first part
+#  of file name including source type specification which is either
+#  ".sf" for single force or ".sm" for moment tensor source.
+#  Further extensions such as ".000" are provided by GFDSVSEIS
+#
+  GFDSV_BASENAME = 
+#------------------------------------------------------------------------
+#  Path to folder where synthetic seismograms are stored.
+#
+  PATH_SYNTHETIC_SEIS = 
+#------------------------------------------------------------------------
+#  Name of event list file including full path
+#
+  FILE_EVENT_LIST = 
+#------------------------------------------------------------------------
+#  Name of station list file including full path
+#
+  FILE_STATION_LIST = 
+#------------------------------------------------------------------------
+#  Path to folder where event filters are stored.
+#  Filter file names follow the convention "filter_eventid".
+#
+  PATH_EVENT_FILTER = 
+#-------------------------------------------------------------------------
+#  Path to folder where station filters are stored.
+#  Filter files follow the convention "filter_staname_comp".
+#
+  PATH_STATION_FILTER = 
+#-------------------------------------------------------------------------
+#  String containing sequence of components to be calculated.
+#  Example: ZNEHRS
+#
+  COMPONENTS = 
+#-------------------------------------------------------------------------
+#  Information specifying the way the event filter is computed.
+#  "EVENT_FILTER_TYPE" contains a keyword for the algorithm.
+#  "EVENT_FILTER_SPECS" contains a real array with necessary data.
+#  Here, it is order and corner frequency (Hz) for highpass and lowpass,
+#  respectively.
+#
+  EVENT_FILTER_TYPE = BUTTERWORTH_BANDPASS
+  EVENT_FILTER_SPECS = 5.0 0.01 5.0 0.05
+#-------------------------------------------------------------------------
+#  Information specifying the way station filters are computed.
+#  "STATION_FILTER_TYPE" contains a keyword for the algorithm.
+#  More should be implemented later
+#
+  STATION_FILTER_TYPE = UNIT
+#-------------------------------------------------------------------------

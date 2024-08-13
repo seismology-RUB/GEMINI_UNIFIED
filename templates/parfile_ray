@@ -1,0 +1,55 @@
+#------------------------------------------------------------------------
+#  computeTravelTimeTable parameter file:
+#------------------------------------------------------------------------
+#  Use SI units
+#
+  SIUNITS = .true.
+#--------------------------------------------------------------------------
+#  File where ray tables are stored.
+#
+  FILE_RAY_TABLE = GEMINI/ray-table-P-ntp444-nr120-dr5.hdf
+#-------------------------------------------------------------------------
+#  Mode of attenuation 
+#  allowed values are: ELASTIC,ATTENUATION_ONLY,DISPERSION_ONLY,ATTENUATION_AND_DISPERSION
+#
+  ATTENUATION_MODE = ELASTIC
+#-------------------------------------------------------------------------
+#  Turning point nodes starting at CMB
+#  Do not put turning points into a region with decreasing velocity
+#  Restrict turning nodes to lower mantle to avoid triplications
+#  From 3480 to 5700 = 2220 km => 5 km*444 points
+#
+  TURNING_NODES_NNOD = 444
+  TURNING_NODES_DR = 5000
+#-------------------------------------------------------------------------
+#  Type of ray
+#
+  RAY_TYPE = P
+#-------------------------------------------------------------------------
+#  1D earth model in nm-format
+#
+  EARTH_MODEL = GEMINI/prem-no-ocean_si.json
+#------------------------------------------------------------------------
+#  Accuracy of computation
+#
+  ACCURACY = 0.000100
+#------------------------------------------------------------------------
+#  read external radial nodes from file
+#
+  EXTERNAL_NODES_FROM_FILE = 0
+#------------------------------------------------------------------------
+#  earth radius (always needed)
+#
+  EXTERNAL_NODES_REARTH = 6371000
+#------------------------------------------------------------------------
+# receivers down to 600 km
+#
+  EXTERNAL_NODES_NBLOCKS = 1
+  EXTERNAL_NODES_NNOD =  125
+  EXTERNAL_NODES_DR =  5000
+#
+#  Shift the nodes to greater depth by value EXTERNAL_NODES_SHIFT (is expected to be > 0.)
+#  Value EXTERNAL_NODES_SHIFT is the depth of the top node.
+#
+  EXTERNAL_NODES_SHIFT = 0.000000
+#------------------------------------------------------------------------

@@ -1,0 +1,87 @@
+#------------------------------------------------------------------------
+#  GFKSYN parameter file
+#------------------------------------------------------------------------------
+# Select if Gemini uses SI units for the calculation of the synthetic 
+# seismograms.
+#
+  SIUNITS = .true.
+#--------------------------------------------------------------------------
+#  Maximum length of synthetics to be calculated from FK-spectra in seconds
+#  Determines the frequency stepping: df = 1/tlen
+#
+  TLEN = 1200.000000
+#------------------------------------------------------------------------
+#  Distance from which wavenumber stepping is calculated in km
+#  (should be about 10 times the maximum source receiver distance)
+#  only used if global == 0
+#
+  XLEN = 5000.000000
+#------------------------------------------------------------------------
+#  Global calculation of GFK-spectra for l = 0,lmax
+#  Flag with value 1 if global calculation else 0
+#
+  GLOBAL = 1
+#------------------------------------------------------------------------
+#  Upper frequency limit of FK-spectra in Hz 
+#  (should be twice the Nyquist frequency desired for synthetics)
+#
+  FMAX = 0.2000000
+#------------------------------------------------------------------------
+#  1D earth model in nm-format
+#
+  EARTH_MODEL = prem-no-ocean_si.json
+#------------------------------------------------------------------------
+#  Basename of output files for GFK-spectra
+#  Program appends '.sourcetype' in parallel version
+#
+  DSVBASENAME = gfk_glob
+#------------------------------------------------------------------------
+#  source type: set 'FORCE' for single force or 'MOMENT' for moment tensor source
+#
+  SOURCE_TYPE = MOMENT
+#------------------------------------------------------------------------
+#  Mode of attenuation 
+#  allowed values are: ELASTIC,ATTENUATION_ONLY,DISPERSION_ONLY,ATTENUATION_AND_DISPERSION
+#
+  ATTENUATION_MODE = ELASTIC
+#------------------------------------------------------------------------
+#  Accuracy of computation
+#
+  ACCURACY = 0.010
+#------------------------------------------------------------------------
+#  Slowness limit for FK spectra used from 0 to 0.5*fmax in s/km
+#  determines the maximum wavenumber according to kmax = om*plim
+#
+  SLOWNESS_LIMIT_1 = 0.000100000
+#------------------------------------------------------------------------
+#  Slowness limit for FK-spectra used from 0.5*fmax to fmax
+#
+  SLOWNESS_LIMIT_2 = 0.000100000
+#------------------------------------------------------------------------
+#  Wavenumber margin beyond slowness limit in fraction of max wavenumber
+#
+  WAVENUMBER_MARGIN_FRACTION = 0.200000
+#------------------------------------------------------------------------
+#  Flag for calculating stresses R,S,T
+#
+  STRESSFLAG = .false.
+#------------------------------------------------------------------------
+#  read external radial nodes from file
+#
+  EXTERNAL_NODES_FROM_FILE = 0
+#------------------------------------------------------------------------
+#  earth radius (always needed)
+#
+  EXTERNAL_NODES_REARTH = 6371000.000000
+#------------------------------------------------------------------------
+  EXTERNAL_NODES_NBLOCKS = 5
+  EXTERNAL_NODES_NNOD =  10 10 10 10 10
+  EXTERNAL_NODES_DR =  3000 5000 10000 20000 20000
+#
+#  Shift the nodes to greater depth by value EXTERNAL_NODES_SHIFT (is expected to be > 0.)
+#  Value EXTERNAL_NODES_SHIFT is the depth of the top node.
+#
+  EXTERNAL_NODES_SHIFT = 0.000000
+#
+  REC_NODE_RADIUS = 6371000.0
+#--------------------------------------------------------------------------

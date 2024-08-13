@@ -1,0 +1,40 @@
+#-----------------------------------------------------------------------------------
+#  Definition of lateral wavefield point grid
+#  valid at each radial node
+#
+#  Longitude in degrees or x-coordinate in m of center of grid
+#
+  WAVEFIELD_POINTS_CLON = 24.6
+#
+#  Latitude in degrees or y-coordinate in m of center of grid
+#
+  WAVEFIELD_POINTS_CLAT = 37.5
+#
+#  Longitudinal width in degrees or width parallel to x-direction of grid in m 
+#
+  WAVEFIELD_POINTS_WLON = 9.0
+#
+#  Latitudinal width in degrees or width parallel to y-direction of grid in m 
+#
+  WAVEFIELD_POINTS_WLAT = 7.0
+#
+#  Number of grid points in longitudinal / x-direction
+#
+  WAVEFIELD_POINTS_NLON = 200
+#
+#  Number of grid points in latitudinal / y-direction
+#
+  WAVEFIELD_POINTS_NLAT = 160
+#
+#  Rotation of grid in degrees
+#
+  WAVEFIELD_POINTS_ROT = -34.0
+#-------------------------------------------------------------------------------------------------------
+
+  GFDSV_BASENAME = gfk
+
+  GEMINI_EARTH_MODEL = gfk.gem
+
+  FILE_STATION_LIST = /inversion/main/path/station_list
+
+  OUTFILE_BASE = /inversion/main/path/kernel_green_tensors/kernel_gt

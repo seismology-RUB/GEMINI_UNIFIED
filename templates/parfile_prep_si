@@ -1,0 +1,39 @@
+#------------------------------------------------------------------------
+#  prepareSpecfemCoupling:
+#------------------------------------------------------------------------
+# Select if Gemini uses SI units for the preparation of the boundary points 
+# seismograms.
+#
+  SIUNITS = .true.
+#--------------------------------------------------------------------------
+#  File with list of GGL boundary points (output from SPECFEM mesher)
+#
+  SPECFEM_DATABASES_MPI = ./DATABASES_MPI
+#-----------------------------------------------------------------------
+#  Name for output HDF file with boundary point specifications
+#  as needed for specfem coupling
+#
+  BOUNDARY_DATA = specfem_boundary_data.hdf
+#------------------------------------------------------------------------
+#  Element dimensions of SPECFEM box (dimx,dimy,dimz)
+#
+  BOX_DIMENSIONS = 40 30 60
+#------------------------------------------------------------------------
+#  Latitude and longitude of bx center
+#
+  BOX_CENTER = 46.2 10.87
+#------------------------------------------------------------------------
+#  Number of processes
+#
+  NPROC = 4
+#------------------------------------------------------------------------
+#  Radial tolerance for determining unique radial GLL-points (in km)
+#  Should be small enough to discriminate between radial GLL-points
+#
+  RADIAL_TOLERANCE = 1.0
+#-------------------------------------------------------------------------
+#  Tolerance for discrimation of essentially different epicentral distances
+#  in degrees (1 degree ~ 100 km, 0.01 degree ~ 1 km)
+#
+  DISTANCE_TOLERANCE = 0.005 
+#-------------------------------------------------------------------------

@@ -1,0 +1,124 @@
+# ===============================================================================
+#  Template parameter file for GFDSV
+# ===============================================================================
+#----------------------------------------------------------------------------
+#   Copyright 2016 Wolfgang Friederich (Ruhr-Universitaet Bochum, Germany)
+#
+#   This file is part of GEMINI_UNIFIED version 1.0.
+#
+#   GEMINI_UNIFIED version 1.0 is free software: you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation, either version 2 of the License, or
+#   (at your option) any later version.
+#
+#   GEMINI_UNIFIED version 1.0 is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with GEMINI_UNIFIED version 1.0.  If not, see <http://www.gnu.org/licenses/>.
+#------------------------------------------------------------------------
+#  GFDSV parameter file template
+#------------------------------------------------------------------------------
+#  Maximum length of synthetics to be calculated from FK-spectra in seconds
+#  Determines the frequency stepping: df = 1/tlen
+#
+  TLEN = 360.
+#----------------------------------------------------------------
+#  Distance from which wavenumber stepping is calculated in km
+#  (should be about 10 times the maximum source receiver distance)
+#
+  XLEN = 10000.
+#----------------------------------------------------------------
+#  Upper frequency limit of FK-spectra in Hz 
+#  (should be twice the Nyquist frequency desired for synthetics)
+#
+  FMAX = 0.100000
+#----------------------------------------------------------------
+#  1D earth model in nm-format
+#
+  EARTH_MODEL = ak135q.nm
+#----------------------------------------------------------------
+#  Basename of output files for GFK-spectra
+#  Program appends '.s'//sourcetype//'.'//crank in parallel version
+#
+  DSVBASENAME = ak135
+#----------------------------------------------------------------
+#  Mode of computation: either
+#  one source and many receiver (depths): ONE_SOURCE_MANY_RECEIVERS
+#  or one receiver and many sources:      ONE_RECEIVER_MANY_SOURCES
+#
+  COMPUTATION_MODE = ONE_SOURCE_MANY_RECEIVERS
+#----------------------------------------------------------------
+#  source type: set 'f' for single force or 'm' for moment tensor source
+#
+  SOURCE_TYPE = m
+#----------------------------------------------------------------
+#  Mode of attenuation 
+#  allowed values are: ELASTIC,ATTENUATION_ONLY,DISPERSION_ONLY,ATTENUATION_AND_DISPERSION
+#
+  ATTENUATION_MODE = ELASTIC
+#----------------------------------------------------------------
+#  Accuracy of computation
+#
+  ACCURACY = 1.e-5
+#----------------------------------------------------------------
+#  Slowness limit for FK spectra used from 0 to 0.5*fmax in s/km
+#  determines the maximum wavenumber according to kmax = om*plim
+#
+  SLOWNESS_LIMIT_1 = 0.400000
+#----------------------------------------------------------------
+#  Slowness limit for FK-spectra used from 0.5*fmax to fmax
+#
+  SLOWNESS_LIMIT_2 = 0.250000
+#----------------------------------------------------------------
+#  Wavenumber margin beyond slowness limit in fraction of max wavenumber
+#
+  WAVENUMBER_MARGIN_FRACTION = 0.1
+#----------------------------------------------------------------
+#  Flag for calculating derivatives of FK-spectra (.true. or .false.)
+#
+  DERIVFLAG = .false.
+#----------------------------------------------------------------
+#  Flag for calculating stresses R,S,T
+#
+  STRESSFLAG = .true.
+#----------------------------------------------------------------
+#  Definition of external radial nodes (in terms of depth):
+#  For an arbitrary number of EXTERNAL_NODES_NBLOCKS blocks of nodes,
+#  the vectors EXTERNAL_NODES_NNOD and EXTERNAL_NODES_DR (both of length EXTERNAL_NODES_NBLOCKS)
+#  define the subdivision of each block by its number of nodes EXTERNAL_NODES_NNOD(i) contained 
+#  in such a block, having constant spacing EXTERNAL_NODES_DR(i). The first node is always
+#  at zero depth (surface) and does not count in EXTERNAL_NODES_NNOD. It can be shifted to greater depths.
+#  Units: Length unit is always km.
+#  Indexing of external nodes increases with radius (not depth!).
+#  Surface node is at sum(external_nodes_nnod)+1.
+#
+#  Example: 
+#      EXTERNAL_NODES_NBLOCKS =  3
+#      EXTERNAL_NODES_NNOD =  8   5   2
+#      EXTERNAL_NODES_DR =  5. 10. 20.
+#      EXTERNAL_NODES_REARTH = 6371.
+#  this means:
+#  3 blocks of NODES (one below the other starting with the first BELOW the surface) with different spacing:
+#     8 nodes with spacing of 5 km between surface and 40 km depth (5,10,15,20,25,30,35,40) plus one at surface
+#     5 nodes with spacing of of 10 km between 40 km and 90 km depth (50,60,70,80,90)
+#     2 layers with spacing of 20 km between 90 km and 130 km depth (110,130)
+#
+  EXTERNAL_NODES_NBLOCKS = 2
+  EXTERNAL_NODES_NNOD =  20 20
+  EXTERNAL_NODES_DR =  2 3
+  EXTERNAL_NODES_REARTH = 6371.000000
+#----------------------------------------------------------------
+#  Shift the nodes to greater depth by value EXTERNAL_NODES_SHIFT (is expected to be > 0.)
+#  Value EXTERNAL_NODES_SHIFT is the depth of the top node.
+#
+  EXTERNAL_NODES_SHIFT = 0.000000
+#----------------------------------------------------------------
+#  index of source or receiver node 
+#  if ONE_SOURCE_MANY_RECEIVERS specify source depth
+#  if ONE_RECEIVER_MANY_SOURCES specify receiver depth
+#
+  SRC_OR_REC_NODE_IDX = 21
+#--------------------------------------------------------------------------------------------------------
