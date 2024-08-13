@@ -1,0 +1,116 @@
+baseIntegrationEnvironment.o: errorMessage.o
+baseStepEngine.o: errorMessage.o baseOdeSystem.o
+complexBulirschStep.o: baseStepEngine.o parametersBulirschStep.o
+integrationStep.o: baseOdeSystem.o baseStepEngine.o
+propagateOde.o: baseOdeSystem.o integrationStep.o errorMessage.o baseIntegrationEnvironment.o baseStepEngine.o
+realBulirschStep.o: baseStepEngine.o parametersBulirschStep.o
+anyRankIntegerArray.o: anyRankArray.o
+anyRankRealArray.o: anyRankArray.o
+argumentParser.o: realloc.o string.o
+asciiDataIO.o: errorMessage.o realloc.o
+asciiSynseisIO.o: string.o
+asciiSynseisPlotGather.o: errorMessage.o asciiSynseisIO.o basePlotGather.o
+axesRotation.o: mathConstants.o
+buildSeismogramGather.o: asciiSynseisIO.o inputParameter.o string.o errorMessage.o asciiDataIO.o argumentParser.o readEventStationFile.o
+buildSffGather.o: sffDatablock.o asciiSynseisIO.o inputParameter.o string.o errorMessage.o sffHeader.o argumentParser.o readEventStationFile.o
+checkAssertion.o: errorMessage.o string.o
+chunkCubedSphere.o: errorMessage.o mathConstants.o
+complexElasticConstants.o: string.o mathConstants.o
+computeDyrtSourceWavelet.o: mathConstants.o asciiSynseisIO.o inputParameter.o string.o fourierSpectrum.o frequencyTime.o errorMessage.o timeSeries.o miniSeed.o argumentParser.o synseisHDF.o readEventStationFile.o constants.o
+computeEventFilter.o: mathConstants.o greenFKSpectra.o inputParameter.o string.o seismicEventList.o hdfWrapper.o errorMessage.o anyRankRealArray.o argumentParser.o butterworthFilter.o readEventStationFile.o
+computeGreenFKSpectraForASKI.o: fluidOdeSystem.o anyRankIntegerArray.o mpiSupport.o toroidalOdeSystem.o reciprocity.o inputParameter.o geminiIntegrationEnvironment.o toroidalMinors.o splineEarthmodelCoefficients.o dsvDerivatives.o errorMessage.o externalRadialNodes.o nodeEarthmodel.o spheroidalMinors.o unitJumpGreenFunctions.o sourceTerms.o anyRankRealArray.o argumentParser.o hdfWrapper.o solidOdeSystem.o
+computeGreenFKSpectraForSynthetics.o: fluidOdeSystem.o anyRankIntegerArray.o mpiSupport.o reciprocity.o inputParameter.o geminiIntegrationEnvironment.o toroidalMinors.o splineEarthmodelCoefficients.o errorMessage.o hdfWrapper.o externalRadialNodes.o nodeEarthmodel.o spheroidalMinors.o unitJumpGreenFunctions.o sourceTerms.o anyRankRealArray.o argumentParser.o
+computeKernelGreenTensor.o: singleFrequencyDisplacement.o mathConstants.o coordinateTransform.o greenFKSpectra.o mpiSupport.o inputParameter.o string.o errorMessage.o wavenumberIntegrals.o asciiDataIO.o geminiEarthModel.o argumentParser.o chunkCubedSphere.o readEventStationFile.o fileUnitHandler.o
+computeKernelWavefield.o: singleFrequencyDisplacement.o mathConstants.o coordinateTransform.o greenFKSpectra.o mpiSupport.o inputParameter.o string.o errorMessage.o wavenumberIntegrals.o asciiDataIO.o geminiEarthModel.o argumentParser.o chunkCubedSphere.o readEventStationFile.o fileUnitHandler.o
+computeSeismogramsFromSpectraForSpecfemCoupling.o: mpiSupport.o mathConstants.o asciiSynseisIO.o inputParameter.o frequencyTime.o string.o errorMessage.o eventFilter.o argumentParser.o synseisHDF.o
+computeSourceWavelet.o: mathConstants.o sourceTimeFunction.o asciiSynseisIO.o inputParameter.o string.o errorMessage.o timeSeries.o miniSeed.o argumentParser.o synseisHDF.o readEventStationFile.o
+computeStationFilter.o: mathConstants.o greenFKSpectra.o inputParameter.o string.o hdfWrapper.o errorMessage.o anyRankRealArray.o seismicNetwork.o argumentParser.o readEventStationFile.o
+computeSyntheticSeismograms.o: besselFunctions.o axesRotation.o mathConstants.o greenFKSpectra.o asciiSynseisIO.o travelTimes.o inputParameter.o frequencyTime.o eventStationGeometry.o string.o errorMessage.o synseisHDF.o eventFilter.o argumentParser.o displacementSpectra.o readEventStationFile.o legendreFunctions.o
+computeSyntheticsForASKI.o: besselFunctions.o axesRotation.o singleFrequencyDisplacement.o mathConstants.o harmonicDegreeSums.o greenFKSpectra.o asciiSynseisIO.o travelTimes.o inputParameter.o frequencyTime.o eventStationGeometry.o string.o errorMessage.o synseisHDF.o eventFilter.o argumentParser.o displacementSpectra.o readEventStationFile.o legendreFunctions.o fileUnitHandler.o
+computeSyntheticsForSpecfemCoupling.o: singleFrequencyDisplacement.o mathConstants.o harmonicDegreeSums.o greenFKSpectra.o asciiSynseisIO.o travelTimes.o inputParameter.o frequencyTime.o string.o mpiSupport.o errorMessage.o synseisHDF.o asciiDataIO.o eventFilter.o argumentParser.o boundaryPoints.o displacementSpectra.o readEventStationFile.o legendreFunctions.o fileUnitHandler.o
+computeTravelTimeTable.o: propagateOde.o realBulirschStep.o anyRankIntegerArray.o mpiSupport.o inputParameter.o hdfWrapper.o splineEarthmodelCoefficients.o errorMessage.o externalRadialNodes.o nodeEarthmodel.o rayIntegrationEnvironment.o anyRankRealArray.o argumentParser.o rayOdeSystem.o
+coordinateTransform.o: mathConstants.o
+cubicSpline.o: errorMessage.o
+datasetStreamAccess.o: fileStreamAccess.o flexibleType.o kindDefinitions.o
+dateTime.o: realloc.o timeUtils.o
+displacementSpectra.o: harmonicDegreeSums.o singleFrequencyDisplacement.o wavenumberIntegrals.o greenFKSpectra.o legendreFunctions.o
+dsvDerivatives.o: nodeEarthmodel.o baseOdeSystem.o geminiIntegrationEnvironment.o
+errorMessage.o: realloc.o
+eventFilter.o: errorMessage.o butterworthFilter.o mathConstants.o
+eventStationGeometry.o: mathConstants.o seismicEvent.o seismicStation.o
+externalRadialNodes.o: inputParameter.o complexElasticConstants.o string.o splineEarthmodelCoefficients.o errorMessage.o hdfWrapper.o nodeEarthmodel.o anyRankRealArray.o
+extractSynseisHdfGatherFromSpecfemCoupling.o: mathConstants.o inputParameter.o string.o errorMessage.o heapSort.o argumentParser.o synseisHDF.o
+fileStreamAccess.o: kindDefinitions.o
+fileUnitHandler.o: realloc.o
+flexibleType.o: primitiveTypeEncoding.o simpleString.o kindDefinitions.o
+fluidOdeSystem.o: errorMessage.o baseOdeSystem.o geminiIntegrationEnvironment.o splineEarthmodelCoefficients.o
+fourierSpectrum.o: timeSeries.o fourierTransform.o
+fourierTransform.o: mathConstants.o
+frequencyTime.o: errorMessage.o fourierTransform.o
+geminiEarthModel.o: errorMessage.o locatePoint.o string.o
+geminiIntegrationEnvironment.o: errorMessage.o externalRadialNodes.o nodeEarthmodel.o baseIntegrationEnvironment.o
+greenFKSpectra.o: anyRankIntegerArray.o mathConstants.o hdfWrapper.o string.o errorMessage.o externalRadialNodes.o anyRankRealArray.o locatePoint.o
+groupStreamAccess.o: fileStreamAccess.o datasetStreamAccess.o
+harmonicDegreeSums.o: greenFKSpectra.o legendreFunctions.o mathConstants.o
+hdfSynseisPlotGather.o: seismicStation.o errorMessage.o basePlotGather.o synseisHDF.o seismicEvent.o constants.o
+hdfWrapper.o: errorMessage.o anyRankIntegerArray.o string.o anyRankRealArray.o
+initialValues.o: errorMessage.o nodeEarthmodel.o geminiIntegrationEnvironment.o splineEarthmodelCoefficients.o
+inputParameter.o: errorMessage.o
+legendreFunctions.o: errorMessage.o
+minorIntegration.o: propagateOde.o minorsOdeSystem.o initialValues.o geminiIntegrationEnvironment.o complexBulirschStep.o errorMessage.o
+minorsOdeSystem.o: errorMessage.o baseOdeSystem.o geminiIntegrationEnvironment.o splineEarthmodelCoefficients.o
+nodeEarthmodel.o: mathConstants.o cubicSpline.o realloc.o complexElasticConstants.o string.o fson.o errorMessage.o locatePoint.o
+plotAsciiSeismogramGather.o: asciiSynseisPlotGather.o pgPlotWindow.o string.o errorMessage.o interactiveBindingsPlotGather.o argumentParser.o
+plotGreenFKSpectra.o: pgPlotWindow.o mathConstants.o greenFKSpectra.o hdfWrapper.o string.o errorMessage.o argumentParser.o pgPlotImage.o
+plotHdfSeismogramGather.o: hdfSynseisPlotGather.o pgPlotWindow.o string.o errorMessage.o interactiveBindingsPlotGather.o argumentParser.o synseisHDF.o
+plotNodeEarthmodel.o: pgPlotXY.o pgPlotWindow.o realloc.o string.o splineEarthmodelCoefficients.o changeAxesLimitsPgplot.o errorMessage.o nodeEarthmodel.o argumentParser.o
+plotSpecfemSeismograms.o: pgPlotWindow.o specfemSynseisPlotGather.o string.o errorMessage.o interactiveBindingsPlotGather.o argumentParser.o
+radialOdeSystem.o: errorMessage.o baseOdeSystem.o geminiIntegrationEnvironment.o splineEarthmodelCoefficients.o
+rayIntegrationEnvironment.o: errorMessage.o externalRadialNodes.o nodeEarthmodel.o baseIntegrationEnvironment.o
+rayOdeSystem.o: errorMessage.o rayIntegrationEnvironment.o baseOdeSystem.o splineEarthmodelCoefficients.o
+readEventStationFile.o: mpiSupport.o seismicEventList.o string.o seismicStation.o errorMessage.o seismicNetwork.o dateTime.o seismicEvent.o
+reciprocity.o: errorMessage.o string.o
+recursiveFilterCoefficients.o: mathConstants.o
+seismicEvent.o: errorMessage.o dateTime.o mathConstants.o
+seismicEventList.o: errorMessage.o seismicEvent.o
+seismicNetwork.o: errorMessage.o seismicStation.o
+seismicStation.o: errorMessage.o dateTime.o constants.o mathConstants.o
+solidOdeSystem.o: errorMessage.o baseOdeSystem.o geminiIntegrationEnvironment.o splineEarthmodelCoefficients.o
+solidtOdeSystem.o: errorMessage.o baseOdeSystem.o geminiIntegrationEnvironment.o splineEarthmodelCoefficients.o
+sourceTerms.o: geminiIntegrationEnvironment.o string.o splineEarthmodelCoefficients.o externalRadialNodes.o nodeEarthmodel.o
+sourceTimeFunction.o: timeSeries.o
+specfemSynseisPlotGather.o: errorMessage.o basePlotGather.o readEventStationFile.o asciiDataIO.o
+spheroidalAdjoint.o: propagateOde.o solidtOdeSystem.o geminiIntegrationEnvironment.o complexBulirschStep.o splineEarthmodelCoefficients.o errorMessage.o
+spheroidalMinors.o: fluidOdeSystem.o propagateOde.o minorsOdeSystem.o initialValues.o radialOdeSystem.o geminiIntegrationEnvironment.o complexBulirschStep.o errorMessage.o
+splineEarthmodelCoefficients.o: nodeEarthmodel.o cubicSpline.o
+string.o: errorMessage.o constants.o
+synseisHDF.o: anyRankIntegerArray.o hdfWrapper.o string.o seismicStation.o errorMessage.o anyRankRealArray.o dateTime.o seismicEvent.o constants.o
+testArrayPassing.o: testArrayPassingSubs.o
+testButterworthImpulseResponse.o: mathConstants.o greenFKSpectra.o inputParameter.o frequencyTime.o string.o errorMessage.o eventFilter.o argumentParser.o synseisHDF.o readEventStationFile.o fileUnitHandler.o
+testCompareSeismograms.o: asciiSynseisIO.o inputParameter.o string.o errorMessage.o argumentParser.o readEventStationFile.o
+testExternalRadialNodes.o: checkAssertion.o errorMessage.o externalRadialNodes.o nodeEarthmodel.o argumentParser.o
+testHeapSort.o: heapSort.o mathConstants.o
+testReadNodeEarthmodel.o: errorMessage.o argumentParser.o nodeEarthmodel.o checkAssertion.o
+testTravelTimes.o: mathConstants.o travelTimes.o hdfWrapper.o errorMessage.o argumentParser.o
+timeSeries.o: realloc.o filterCoefficientsDecimate.o errorMessage.o fourierTransform.o asciiDataIO.o dateTime.o recursiveFilterCoefficients.o
+toroidalIntegration.o: propagateOde.o initialValues.o toroidalOdeSystem.o geminiIntegrationEnvironment.o complexBulirschStep.o errorMessage.o
+toroidalMinors.o: propagateOde.o initialValues.o toroidalOdeSystem.o geminiIntegrationEnvironment.o complexBulirschStep.o errorMessage.o
+toroidalOdeSystem.o: errorMessage.o baseOdeSystem.o geminiIntegrationEnvironment.o splineEarthmodelCoefficients.o
+travelTimes.o: mathConstants.o hdfWrapper.o errorMessage.o anyRankRealArray.o locatePoint.o
+unitJumpGreenFunctions.o: spheroidalAdjoint.o geminiIntegrationEnvironment.o toroidalMinors.o splineEarthmodelCoefficients.o string.o errorMessage.o spheroidalMinors.o
+wavenumberIntegrals.o: greenFKSpectra.o besselFunctions.o mathConstants.o
+fson.o: fson_value_m.o fson_string_m.o fson_path_m.o
+fson_path_m.o: fson_value_m.o fson_string_m.o
+fson_value_m.o: fson_string_m.o
+miniSeed.o: errorMessage.o dateTime.o
+basePlotGather.o: timeSeries.o string.o errorMessage.o fourierSpectrum.o
+interactiveBindingsPlotGather.o: basePlotGather.o changeAxesLimitsPgplot.o
+pgPlotImage.o: plotUtilities.o pgColorScale.o
+pgPlotTimeSeries.o: timeSeries.o
+boundaryPoints.o: axesRotation.o mathConstants.o hdfWrapper.o string.o errorMessage.o heapSort.o asciiDataIO.o locatePoint.o
+prepareSpecfemCoupling.o: inputParameter.o hdfWrapper.o string.o errorMessage.o asciiDataIO.o argumentParser.o boundaryPoints.o
+testBpIterator.o: errorMessage.o boundaryPoints.o hdfWrapper.o mathConstants.o
+testBpUniqueDistances.o: inputParameter.o hdfWrapper.o errorMessage.o argumentParser.o boundaryPoints.o
+sffDatablock.o: sffFree.o sffInfo.o
+sffDataSection.o: sffDatablock.o sffHeader.o
+sffHeader.o: sffFree.o sffSource.o
