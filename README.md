@@ -1,2 +1,9 @@
 # GEMINI_UNIFIED
-New version of GEMINI that offers both global and regional computations
+GEMINI (Green's function of the Earth by MInors INtegration) is a code that computes Green functions for a spherically symmetric, elastic and isotropic earth model. The method is described in Friederich, W. and Dalkolmo, J. (1995), Complete synthetic seismograms for a spherically symmetric earth by a numerical computation of Green's function in the frequency domain, Geophys. J. Int., 537--550, 122,
+https://doi.org/10.1111/j.1365-246X.1995.tb07012.x.
+
+GEMINI_UNIFIED is new version of GEMINI that offers capabilities for both global and shallow regional computations. In the former case, it performs a spherical harmonics expansion of the displacement field, in the latter case, an approximation of the spherical harmonics by Bessel function is applied. With this version it is also possible to compute synthetic seismograms at receivers inside the earth. Moreover, by using the reciprocity theorem, Green functions at the surface for many sources at different depths can be obtained in a single run.
+
+GEMINI works in a two-phase procedure: first, radially varying spherical harmonics expansion coefficients of the Fourier transform of the displacement field are computed which depend on the earth model and the source depth. Based on these coefficients, synthetic seismograms for any moment tensor, epicentral distance and receiver depth can be rapidly calculated by spherical harmionics summation and inverse Fourier transform.
+
+GEMINI_UNIFIED runs reliably for global computations up to 0.2 Hz and has been tested for global body wave computations up to frequencies of 0.5 Hz. It is not unconditionally stable and may fail for certain combinations of frequencies and harmonic degrees. Much higher frequencies can be obtained for shallow, short-distance regional computations. However, this aspect of the code still needs some thorough testing.
