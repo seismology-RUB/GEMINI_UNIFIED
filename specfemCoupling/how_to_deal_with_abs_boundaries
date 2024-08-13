@@ -1,0 +1,114 @@
+Read parameter MAP_TO_SPHERICAL_CHUNK from somewhere:
+- now read form Mesh_Par_file into meshfem_par
+To run xmeshfem3D:
+- mkdir DATABASES_MPI, OUTPUT_FILES and MESH
+To get mesh files (like absorbing_boundary_files) set SAVE_AS_CUBIT to true:
+- done in constants.h (not a good place)
+In Parfile set COUPLE_WITH_INJECTION to .true. and
+INJECTION_TECHNIQUE_TYPE = 4
+
+
+Make use of procXXXXXX_normal.txt output of generate_databases (save_arrays_solver)
+- read x,y,z,nx,ny,nz values of boundary points in the order as they are
+  accessed later in compute_stacey_viscoelastic.f90 per process
+- separate the bottom surface from the vertical side surfaces
+- collect points into one array ordered according to processes for vertical and bottom surfaces separately
+- remember how many points each process has
+- for the vertical side surfaces do:
+  - compute spherical coordinates
+  - sort according to increasing radius
+  - write sorted points, normals, sortidx, runique, nbpvert,nbpbot,nbptot to HDF file
+  - calculate epicentral distance for each point on the vertical sides after radial sorting
+  - sort epicentral distances and identify unique values
+  - collect original indices associated with these unique distance values
+    for example distance(i) -> side point indices: 4,103,207,314,723 etc
+  - build index array point_to_epidi(4,103,,207,314,723) = i
+  - compute spherical harmonics for unique epicentral distances
+    then walk through vertical side points taking spherical harmonics for point_to_epidi(point)
+    and compute synthetic seismograms
+  - write results into HDF array at the very original positions before radial sorting
+  - later access different blocks using offset/count hyperslabs
+  - write offset/count information into HDF file
+- for the bottom boundary do:
+  - compute spherical coordinates, should be on a single radius
+  - work through points and compute synthetic seismograms there
+  - write them into separate HDF array
+  - write offset/count for the different processes into HDF file
+- for chunks inside the earth there might be a top boundary as well
+  - this should also be treated separately
+- add myrank as member of specfem_par to compute_stacey_viscoelastic
+  - split loop over boundaries faces into vertical boundaties, bottom and top boundary
+
+- Add reading of Gemini wavefields in compute_stacey_viscoelastic from HDF input
+  if coupling to Gemini
+- Add opening of file of Gemini wavefields in couple_with_injection.f90
+
+- cartesian coordinates mapped to sphere can be interpretated to refer to an
+  origin at the center of the chunk. x points east and y north.
+
+Git clone curent specfem version to work with local copy
+
+Changed code by Manuel:
+commit 245ace2615a2327c17d89f72b102593768c4c004
+ setup/constants.h.in                               |    2 +-
+ src/meshfem3D/create_interfaces_mesh.f90           |   45 +-
+ src/meshfem3D/earth_chunk.f90                      |   68 ++
+ src/meshfem3D/get_flags_boundaries.f90             |   54 +-
+
+commit 87cd327d46ad073966d50634263457ab54df18fe
+ src/meshfem3D/earth_chunk.f90                      |   1 -
+ src/meshfem3D/get_flags_boundaries.f90             |   2 +-
+ src/meshfem3D/save_databases.F90                   |  45 ++++++-
+
+commit 177ef96d8e3c977b2b9826688638e2d1a653a5c6
+ src/generate_databases/get_model.F90               |     7 +-
+ src/generate_databases/model_coupled.f90           |     2 +-
+ src/generate_databases/model_tomography.f90        |     1 +
+ src/meshfem3D/create_meshfem_mesh.f90              |     7 +-
+ src/meshfem3D/meshfem3D_par.f90                    |     3 +
+ src/meshfem3D/read_mesh_parameter_file.f90         |    13 +-
+ src/meshfem3D/read_value_mesh_parameters.f90       |    40 +-
+ src/meshfem3D/save_databases.F90                   |    21 +-
+
+commit b7ed7a33a1599beceb8d5330a9e750fe772765cc
+
+setup/constants.h.in:  SAVE_MESH_AS_CUBIT = .true.:
+- not needed as it writes the list_ggl_boundary files which are not used
+src/meshfem3D/create_interfaces_mesh.f90:
+- mappig to spherical chunk aded
+src/meshfem3D/earth_chunk.f90:
+- not required because mapToSphericalChunk is now in
+  separate file cartesian_box_spherical_chunk_mappings.f90
+src/meshfem3D/get_flags_boundaries.f90:
+- back mapping from spherical chunk to cartesian box added
+- applies to all checks not just boundary checks
+src/meshfem3D/save_databases.f90:
+- only concerns writing of tomo-files to databases, not required yet
+  for coupling
+src/meshfem3D/create_meshfem_mesh.f90:
+- call to save_databases changed for tomo files, not required yet
+src/meshfem3D/meshfem3d_par.f90:
+- variable tomo_files added, not required yet
+src/meshfem3D/read_mesh_parameter_file.f90:
+- extension for tomographic model
+src/meshfem3D/read_value_mesh_parameters.f90:
+- changes concerning tomo files, not required yet
+src/generate_databases/get_model.F90:
+- also concerns tomographic model, not yet required
+src/generate_databases/model_tomography.f90:
+- also concerns 3D tomographic model, not required yet
+
+COUPLE_WITH_INJECTION_TECHNIQUE:
+- shared: just read_parameter_file.f90 and shared_par.f90
+- decompose_mesh: writes Numglob2loc_elmn.txt (not needed)
+- meshfem3D: save_databases.f90 writes list_ggl_boundary files (not needed)
+- generate_databases:
+	save_arrays_solver: write absorb.dsm and normal.txt (needed)
+	get_absorbing_boundary: sets variable iboun (needed?)
+	get_model and model_coupled: find layer of element and something for FK (not needed)
+	model_external_values: only a safety chek (not needed)
+- specfem3d:
+	compute_add_sources_viscoelastic:
+	compute_stacey_viscoelastic:
+	couple_with_injection:
+	locate_source:
