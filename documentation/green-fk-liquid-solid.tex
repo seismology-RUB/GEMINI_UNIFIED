@@ -1,0 +1,376 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{times}
+\usepackage[intlimits]{amsmath}
+%
+% for reviewers version: remove endfloat
+% for original version: keep endfloat
+%
+\usepackage{graphicx}
+\voffset-0.7in
+\hoffset-0.4in
+\addtolength{\textheight}{5\baselineskip}
+\addtolength{\textwidth}{3.0cm}
+\addtolength{\oddsidemargin}{-0.5cm}
+\renewcommand{\baselinestretch}{1.2}
+\pagestyle{myheadings} \markright{}
+\begin{document}
+\setlength{\parindent}{0cm}
+\addtolength{\parskip}{0.1cm}
+%
+\section*{Computing Green frequency wavenumber spectra in earth models with liquid core and ocean with GEMINI}
+%
+This note answers the question how to compute Green FK coefficients versus radius for earth models with a fluid outer core and an ocean. We consider the following earth model: A solid inner core below a liquid outer core below solid mantle and solid crust below an ocean at the top. How are Green FK coefficients calculated if the source is in the ocean (airgun) or in the solid crust or mantle. We assume receivers in both the liquid and the solid parts to be able to compute seismic wavefields there. We define the following radii: $r_1$ inner core boundary (ICB), $r_2$ core-mantle-boundary (CMB), $r_3$ ocean bottom.
+%
+\subsection{Minors}
+%
+In the following, we will frequently use so-called second order minors which are formed from the components of two linearly independent basis solutions, e.g., $\mathbf{w}_1$ and $\mathbf{w}_2$. They are defined as follows:
+\begin{align}
+\mathrm{m}_1 &= \mathbf{m}_{12} = w_{11}w_{22}-w_{12}w_{21} \notag \\  
+\mathrm{m}_2 &= \mathbf{m}_{13} = w_{11}w_{23}-w_{13}w_{21} \notag \\  
+\mathrm{m}_3 &= \mathbf{m}_{14} = w_{11}w_{24}-w_{14}w_{21} \notag \\  
+\mathrm{m}_4 &= \mathbf{m}_{23} = w_{12}w_{23}-w_{13}w_{22} \notag \\  
+\mathrm{m}_5 &= \mathbf{m}_{24} = w_{12}w_{24}-w_{14}w_{22} \notag \\  
+\mathrm{m}_6 &= \mathbf{m}_{34} = w_{13}w_{24}-w_{14}w_{23}
+\end{align} 
+Expressed in terms of the linearly indexed minors, the 4x4 matrix $\mathbf{m}_{nm}$ takes the fully antisymmetric form:
+\begin{equation}
+\mathbf{m} = \left(\begin{array}{cccc}
+0                        &   \mathrm{m}_1 & \mathrm{m}_2  & \mathrm{m}_3 \\
+-\mathrm{m}_1  &    0                     & \mathrm{m}_4  & \mathrm{m}_5 \\ 
+-\mathrm{m}_2  &  -\mathrm{m}_4 &  0                      & \mathrm{m}_6 \\
+-\mathrm{m}_3  &  -\mathrm{m}_5 & -\mathrm{m}_6 & 0                     
+\end{array}\right) \,.
+\end{equation}
+In addition, we need the fully antisymmetric 4x4 matrix
+\begin{equation}
+\mathbf{M} = \epsilon_{ij(kl)}\mathbf{m}_{kl} = \left( \begin{array}{cccc}
+0                        &   \mathrm{m}_6  &  -\mathrm{m}_5  &  \mathrm{m}_4 \\
+-\mathrm{m}_6  &   0                       &  \mathrm{m}_3  &  -\mathrm{m}_2 \\
+\mathrm{m}_5  &  -\mathrm{m}_3  &  0                       &  \mathrm{m}_1 \\
+-\mathrm{m}_4  &  \mathrm{m}_2  & -\mathrm{m}_1  &  0                        
+\end{array}\right) \,.
+\end{equation}
+%
+\subsection{Propagator matrices}
+%
+ We will also use the concept of a propagator matrix which contains linearly independent basis solutions $\mathbf{y}_k$ of a system of ordinary differential equations as its columns:
+\begin{align}
+\mathbf{P}(r,r_s) = (\mathbf{y}_1(r),\mathbf{y}_2(r),\mathbf{y}_3(r),\mathbf{y}_4(r),\ldots)\ \ 
+\mathrm{with}\ \ \mathbf{y}_k(r_s) = \mathbf{e}_k \ \ 
+\mathrm{or}\ \ \mathbf{P}(r_s,r_s) = \mathbf{I}\,.
+\end{align}
+Since $\mathbf{y}_k(r) = \mathbf{P}(r,r_s)\mathbf{e}_k$, it follows immediately that
+\begin{align}
+\mathbf{y}_k(r) = \mathbf{P}(r,r_s)\mathbf{y}_k(r_s) \,,
+\end{align}
+a property explaining the name propagator matrix.
+
+Given the system matrix $\mathbf{A}(r)$, the propagator satisfies the differential equation
+\begin{align}
+\frac{d\mathbf{P}(r,r_s)}{dr} = \frac{d}{dr}(\mathbf{y}_1,\mathbf{y}_2,\mathbf{y}_3,\mathbf{y}_4,\ldots)
+= (\mathbf{A}\mathbf{y}_1,\mathbf{A}\mathbf{y}_2,\mathbf{A}\mathbf{y}_3,\mathbf{A}\mathbf{y}_4,\ldots) = \mathbf{A}(r)\mathbf{P}(r,r_s)\,.
+\end{align}
+In index notation, using Einstein summatin convention, this reads
+\begin{align}
+\frac{d}{dr}P_{jm}(r,r_s) = A_{jk}(r)P_{km}(r,r_s) \,.
+\end{align}
+How does the propagator change if the source position $r_s$ changes? To answer this question, we start with the following identity:
+\begin{align}
+P_{jm}(r_s,r)P_{mk}(r,r_s) = P_{jk}(r_s,r_s) = \delta_{jk} \,.
+\end{align}
+Differentiating wih respect to $r$, we get:
+\begin{align}
+\frac{dP_{jm}(r_s,r)}{dr} P_{mk}(r,r_s) = -P_{jm}(r_s,r)\frac{dP_{mk}(r,r_s)}{dr} = -P_{jm}(r_s,r)A_{ml}(r)P_{lk}(r,r_s) \,.
+\end{align}
+Multiplying on both sides with $P_{kn}(r_s,r)$ and using $P_{mk}(r,r_s)P_{kn}(r_s,r)=\delta_{mn}$, we find:
+\begin{align}
+\frac{dP_{jn}(r_s,r)}{dr} = -P_{jm}(r_s,r)A_{mn}(r) = -A^T_{nm}P_{jm}(r_s,r)\,.
+\end{align}
+%
+\subsection{Source in the ocean}
+%
+Let us first consider the case where the seismic source is in the ocean. 
+\paragraph{Inner core:}
+In case that the starting radius is in the inner core, the GFK coefficients can be written as a linear combination of two basis solutions (regular at the earth's center):
+\begin{equation}
+\mathbf{v}^{(ic)}(r) = a_1 \mathbf{q}_1(r)+a_2 \mathbf{q}_2(r) \,.
+\end{equation}
+At the inner core boundary (ICB) $r_1$, the stress $v^{(ic)}_4(r_1) = 0$ leading to the condition
+\begin{equation}
+a_1 q_{14}(r_1)+a_2 q_{24}(r_1) = 0\ \ \mathrm{or}\ \ a_2 = -a_1\frac{q_{14}(r_1)}{q_{24}(r_1)} = -b_1\,q_{14}(r_1)\,.
+\end{equation}
+where we defined the new constant $b_1 = \frac{a_1}{q_{24}(r_1)}$. Then,
+we can write the GFK coefficients in the inner core as
+\begin{equation}
+\mathbf{v}^{(ic)}(r) = b_1\ (q_{24}(r_1)\mathbf{q}_1(r) - q_{14}(r_1) \mathbf{q}_2(r)) \,,
+\end{equation}
+containing only a single free constant. 
+%
+\paragraph{Outer core:}
+On the side of the liquid outer core, the GFK coefficients are expressed by only one basis solution with two components:
+\begin{equation}
+\mathbf{v}^{(oc)}(r) = b_1 \mathbf{p} \,.
+\end{equation}
+with the continuity conditions
+\begin{align}
+p_1(r_1) &= q_{24}(r_1)q_{11}(r_1) - q_{14}(r_1) q_{21}(r_1) = \mathrm{m}_3(r_1) \\\notag
+p_2(r_1) &= q_{24}(r_1)q_{12}(r_1) - q_{14}(r_1) q_{22}(r_1) = \mathrm{m}_5(r_1) \,.
+\end{align}
+%
+\paragraph{Solid mantle and crust:}
+In the solid mantle and the solid crust, we need again two basis solutions to represent the GFK coefficients:
+\begin{equation}
+\mathbf{v}^{(m)}(r) = b_1 \mathbf{w}_1(r)+b_2 \mathbf{w}_2(r) \,.
+\end{equation}
+We require one of these, $b_1\mathbf{w}_1$, to be continuous at the CMB (at radius $r_2$) for the first two components while the 3rd and 4th component are chosen to be zero:
+\begin{align}
+w_{11}(r_2) = p_1(r_2) \ \mathrm{and}\ w_{12}(r_2) = p_2(r_2),\ w_{13}(r_2)=0,\ w_{14}(r_2) = 0 \,.
+\end{align}
+For the 2nd basis solution, 
+we choose initial conditions $\mathbf{w}_2(r_2) = (0,0,1,0)$.
+At the ocean bottom (radius $r_3$), the tangential stress component of $\mathbf{v}^{(m)}$ must vanish:
+\begin{equation}
+b_1 w_{14}(r_3)+b_2 w_{24}(r_3) = 0\ \ \mathrm{or}\ \ b_2 = -b_1\frac{w_{14}(r_3)}{w_{24}(r_3)} \,.
+\end{equation}
+The GFK coefficients in the solid part can hence be written as follows:
+\begin{equation}
+\mathbf{v}^{(m)}(r) = \frac{b_1}{w_{24}(r_3)}\ (w_{24}(r_3)\mathbf{w}_1(r) - w_{14}(r_3) \mathbf{w}_2(r)) \,,
+\end{equation}
+%
+\paragraph{Ocean:}
+Finally, in the liquid ocean, the GFK coefficients are again represented by only one basis solution. We distinguish between the region below and above the source:
+\begin{align}
+\mathbf{v}^{(o-)} = d\mathbf{h}(r) \ \,,\ \ \mathbf{v}^{(o+)} = e\mathbf{g}(r) \,.
+\end{align}
+Requiring continuity of the first two components at the ocean bottom, we find
+\begin{align}
+\frac{b_1}{w_{24}(r_3)}  (w_{24}(r_3)w_{11}(r_3) - w_{14}(r_3) w_{21}(r_3)) &= dh_{11}(r_3) \\ \notag
+\frac{b_1}{w_{24}(r_3)}  (w_{24}(r_3)w_{12}(r_3) - w_{14}(r_3) w_{22}(r_3)) &= dh_{12}(r_3)\,.
+\end{align}
+Choosing $d = \frac{b_1}{w_{24}(r_3)}$, the following initial conditions for $\mathbf{h}(r)$ are obtained:
+\begin{align}
+h_{11}(r_3) &= \mathrm{m}_3(r_3) \\\notag
+h_{12}(r_3) &= \mathrm{m}_5(r_3) \,.
+\end{align}
+Above the source, we choose initial conditions $\mathbf{g}(a) = (1,0)$, since the stress must vanish. At the source, the solution has a jump defined by the source vector $\mathbf{s}$:
+\begin{align}
+e\mathbf{g}(r_s)-d\mathbf{h}(r_s) = \mathbf{s} \,.
+\end{align}
+The coefficients $e$ and $d$ are then given by (using Cramer's rule):
+\begin{align}
+e & = \frac{h_1(r_s)s_2-h_2(r_s)s_1}{h_1(r_s)g_2(r_s)-h_2(r_s)g_1(r_s)} \\ \notag
+d & = \frac{g_1(r_s)s_2-g_2(r_s)s_1}{h_1(r_s)g_2(r_s)-h_2(r_s)g_1(r_s)} \,.
+\end{align}
+%
+\paragraph{Numerical evaluation:}
+The expressions for the solid parts can not be stably evaluated numerically. To solve the problem, we express the values of the basis solutions at $r_3$ or at $r_1$ by the values at $r$:
+\begin{align}
+q_{\alpha,j}(r_1) &= P_{jm}(r_1,r) q_{\alpha,m}(r)  \nonumber \\
+w_{\alpha,j}(r_3) & = P_{jm}(r_3,r) w_{\alpha,m}(r) \,,
+\end{align}
+where $P_{jm}(r_1,r)$ is a propagator matrix propagating the solution from $r$ to $r_1$ with $P_{jm}(r_1,r_1) = \delta_{jm}$.
+%
+Using this idea, we obtain (using summation convention)
+\begin{align}\label{gfkmin}
+v^{(ic)}_j(r) &=  dw_{24}(r_3) P_{4,m}(r_1,r)\ (q_{2m}(r)q_{1j}(r) - q_{1m}(r)q_{2j}(r)) 
+= dw_{24}(r_3) P_{4m}(r_1,r) \mathbf{m}_{jm}(r) \notag \\ 
+v^{(m)}_j(r) &= d P_{4m}(r_3,r)\ (w_{2m}(r)w_{1j}(r) - w_{1m}(r_3) w_{2j}(r)) 
+= d P_{4m}(r_3,r) \mathbf{m}_{jm}(r)\,,
+\end{align}
+showing that the solution can be expressed in terms of minors. The term $P_{4m}(r_3,r)$ is obtained by a numerical integration from $r_3$ downwards of the negative transposed spheroidal equation system with initial value $P_{4m}(r_3,r_3) = \delta_{4m} = (0,0,0,1)$, i.e.:
+\begin{equation}
+\frac{d}{dr}P_{4m}(r_3,r) = -A^T_{mk}(r)P_{4k}(r_3,r) \,.
+\end{equation}
+%
+\paragraph{Initial conditions for the minors at the CMB}
+If the starting radius is in the inner core, we use the basis solutions for a homogeneous sphere at the starting radius as initial conditions. At the CMB, we have $\mathbf{w}_1 = (p_1(r_2),p_2(r_2),0,0)$ and $\mathbf{w}_2=(0,0,1,0)$. For the minors, we obtain at $r_2$:
+\begin{align}
+\mathrm{m}_1 &= \mathbf{m}_{12} = w_{11}w_{22}-w_{12}w_{21} = 0              \notag \\
+\mathrm{m}_2 &= \mathbf{m}_{13} = w_{11}w_{23}-w_{13}w_{21} = p_1(r_2)   \notag \\
+\mathrm{m}_3 &= \mathbf{m}_{14} = w_{11}w_{24}-w_{14}w_{21} = 0              \notag \\
+\mathrm{m}_4 &= \mathbf{m}_{23} = w_{12}w_{23}-w_{13}w_{22} = p_2(r_2)   \notag \\
+\mathrm{m}_5 &= \mathbf{m}_{24} = w_{12}w_{24}-w_{14}w_{22} = 0              \,,
+\end{align}
+which are used as initial conditions for the minors. In case the starting radius is in the solid mantle or the solid crust, we use again the basis solutions for a homogeneous inner sphere to calculate initial conditions for the minors.
+%
+\paragraph{How to compute $w_{24}(r_3)$?}
+Again we use the propagator matrix to write
+\begin{equation}
+w_{24}(r_3) = P_{4m}(r_3,r_2)w_{2m}(r_2) \,.
+\end{equation}
+Since $w_{2m}(r_2) = \delta_{m3}$, we simply get
+\begin{equation}
+w_{24}(r_3) = P_{43}(r_3,r_2) \,.
+\end{equation}
+%
+\paragraph{Summary:}
+Basically, $d$ and $e$ are known since they can be calculated from the basis solutions $\mathbf{h}$ and $\mathbf{g}$.
+With $b_1 = w_{24}(r_3) d$, we finally get:\\
+\underline{In the ocean}:
+\begin{align}\label{gfksea}
+&\mathbf{v}^{(o-)} = d\mathbf{h}(r) \ \,,\ \ \mathbf{v}^{(o+)} = e\mathbf{g}(r) \notag \\
+&e = \frac{h_1(r_s)s_2-h_2(r_s)s_1}{h_1(r_s)g_2(r_s)-h_2(r_s)g_1(r_s)}, \ \ d = \frac{g_1(r_s)s_2-g_2(r_s)s_1}{h_1(r_s)g_2(r_s)-h_2(r_s)g_1(r_s)} \,;
+\end{align}
+\underline{in the solid mantle and crust:}
+\begin{equation}\label{gfkm}
+v_j^{(m)}(r) = d\,P_{4m}(r_3,r) \mathbf{m}_{jm}(r) \,;
+\end{equation}
+\underline{in the outer core:}
+\begin{equation}\label{gfkoc}
+\mathbf{v}^{(oc)}(r) =  d\,P_{43}(r_3,r_2)\mathbf{p}(r) \,;
+\end{equation}
+\underline{and in the inner core:}
+\begin{equation}\label{gfkic}
+v_j^{(ic)}(r) =   d\,P_{43}(r_3,r_2)\,P_{4m}(r_1,r) \mathbf{m}_{jm}(r) \,.
+\end{equation}
+and
+\begin{equation}
+\frac{d}{dr}P_{4m}(r_3,r) = -A^T_{mk}(r)P_{4k}(r_3,r) \ \mathrm{with}\ \  P_{4m}(r_3,r_3) = \delta_{4m}\,.
+\end{equation}
+
+%
+\paragraph{Case: starting radius in the outer core}
+When the starting radius is in the outer core, we take the basis solutions for a liquid inner homogeneous sphere to calculate $\mathbf{p}(r)$. Equations \ref{gfksea}, \ref{gfkm}, \ref{gfkoc} remain valid. Minors and propagator matrix in the inner core are no longer needed.
+%
+\paragraph{Case: starting radius in the solid mantle}
+Initial conditions for the minors come from the basis solutions for a homogeneous solid inner sphere at the starting radius. Minors and propagator for inner core not required. Basis solution in the outer core is not required.
+%
+\paragraph{Case: starting radius in the ocean}
+Initial conditions for $\mathbf{h}(r)$ come from the basis solutions for a liquid homogeneous inner sphere. Minors and propagator for inner core not required, nor a basis solution in the outer core nor minors and propagator for the mantle.
+%
+\paragraph{Numerical strategy}
+We perform an integration of either one basis solution or the minors from the surface to the source depth. Secondly, we do an integration from the starting radius upwards to the source depth using intial values as described above at the starting radius or the liquid-solid transitions, respectively. If necessary, we solve the negative transpose spheroidal system to compute the propagator $P_{4m}(r)$ for the inner core and the solid mantle. Given all these solutions, we compute the constant $d$ and evaluate the GFK coefficients according to equations \ref{gfkoc}, \ref{gfkic} and \ref{gfkm}.
+%
+\subsection{Source in the solid mantle or solid crust}
+%
+If the source is in the solid mantle, we do an integration from the surface to the source depth again using appropriate initial conditions at the surface and honouring switches from basis solutions to minors at liquid-solid boundaries. This way, we obtain
+\begin{equation}
+\mathbf{v}^{(o)}(r) = e_1\mathbf{g}\ \mathrm{with}\ \mathbf{g}(a) = (1,0) \,.
+\end{equation}
+In the solid mantle, we get
+\begin{equation}
+\mathbf{v}^{(m+)}(r) = e_1\mathbf{u}_1+e_2\mathbf{u}_2\ \mathrm{with}\ \mathbf{u}_1(r_3) = (g_1(r_3),g_2(r_3),0,0)\ \mathrm{and}\ \mathbf{u}_2(r_3) = (0,0,1,0) \,.
+\end{equation}
+Secondly, we do an integration from the starting radius up to the source depth. In the inner core, we get
+\begin{equation}
+v_n^{(ic)}(r) = b_1\ (q_{24}(r_1)q_{1n}(r) - q_{14}(r_1) q_{2n}(r)) = b_1 P_{4m}(r_1,r)\mathbf{m}_{nm}(r)\,;
+\end{equation}
+in the outer core we have
+\begin{equation}
+\mathbf{v}^{(oc)}(r) = b_1 \mathbf{p}\ \mathrm{with}\ \mathbf{p}(r_1) = (\mathrm{m}_3(r_1),\mathrm{m}_5(r_1)) \,.
+\end{equation}
+In the solid mantle we find
+\begin{equation}
+\mathbf{v}^{(m-)}(r) = b_1\mathbf{w}_1+b_2\mathbf{w}_2\ \mathrm{with}\ \mathbf{w}_1(r_2) = (p_1(r_2),p_2(r_2),0,0)\ \mathrm{and}\ \mathbf{w}_2(r_2) = (0,0,1,0) \,.
+\end{equation}
+The constants $e_i$, and $b_i$ are obtained from the jump condition at the source:
+\begin{align}
+\mathbf{v}^{(m+)}(r_s) - \mathbf{v}^{(m-)}(r_s) &= \mathbf{s} \notag\\
+e_1\mathbf{u}_1(r_s)+e_2\mathbf{u}_2(r_s)- b_1\mathbf{w}_1(r_s)-b_2\mathbf{w}_2(r_s) &= \mathbf{s} \,.
+\end{align}
+Using again Cramer's rule, we find
+\begin{align}
+e_1 &= \frac{1}{\Delta(r_s)}\epsilon_{ij(kl)}s_i u_{2j}(r_s)\mathbf{m}^{-}_{kl}(r_s) = +s_i\frac{1}{\Delta(r_s)}\mathbf{M}^-_{ij}(r_s)u_{2j}(r_s) \notag \\ 
+e_2 &= -\frac{1}{\Delta(r_s)}\epsilon_{ij(kl)}s_i u_{1j}(r_s)\mathbf{m}^{-}_{kl}(r_s) = -s_i\frac{1}{\Delta(r_s)}\mathbf{M}^-_{ij}(r_s)u_{1j}(r_s)\notag \\
+b_1 &= -\frac{1}{\Delta(r_s)}\epsilon_{ij(kl)}s_i w_{2j}(r_s)\mathbf{m}^{+}_{kl}(r_s) = -s_i\frac{1}{\Delta(r_s)}\mathbf{M}^+_{ij}(r_s)w_{2j}(r_s)\notag \\ 
+b_2 &= \frac{1}{\Delta(r_s)}\epsilon_{ij(kl)}s_i w_{1j}(r_s)\mathbf{m}^{+}_{kl}(r_s) = +s_i\frac{1}{\Delta(r_s)}\mathbf{M}^+_{ij}(r_s)w_{1j}(r_s)\,.
+\end{align}
+with
+\begin{align}
+\Delta(r_s)  &=  \epsilon_{(ij)(kl)}\mathbf{m}^+_{ij}(r_s)\mathbf{m}^{-}_{kl}(r_s) 
+= \mathbf{M}^-_{(ij)}(r_s)\mathbf{m}^+_{ij}(r_s) \notag \\
+& = \mathrm{m}^{-}_6(r_s)\mathrm{m}^{+}_1(r_s) - \mathrm{m}^{-}_5(r_s)\mathrm{m}^{+}_2(r_s)+\mathrm{m}^{-}_4(r_s)\mathrm{m}^{+}_3(r_s) \notag \\
+&\  +\mathrm{m}^{-}_3(r_s)\mathrm{m}^{+}_4(r_s)-\mathrm{m}^{-}_2(r_s)\mathrm{m}^{+}_5(r_s)+\mathrm{m}^{-}_1(r_s)\mathrm{m}^{+}_6(r_s) \,.
+\end{align}
+and where the minors with the minus sign are formed form the $w$-basis solutions and those with the plus-sign from the $u$-basis solutions.  
+Using these expressions, we find for the mantle GFK-coefficients:
+\begin{align}
+\mathbf{v}^{(m+)}(r) &= +s_i\frac{1}{\Delta(r_s)}\mathbf{M}^-_{ij}(r_s)(u_{2j}(r_s)\mathbf{u}_1(r)-u_{1j}(r_s)\mathbf{u}_2(r)) \notag \\
+\mathbf{v}^{(m-)}(r) &= -s_i\frac{1}{\Delta(r_s)}\mathbf{M}^+_{ij}(r_s)(w_{2j}(r_s)\mathbf{w}_1(r)-w_{1j}(r_s)\mathbf{w}_2(r))\,.
+\end{align}
+To ensure a stable numerical implementation, we again use the propagator matrix:
+\begin{align}
+v_n^{(m+)}(r) &= +s_i\frac{1}{\Delta(r_s)}\mathbf{M}^-_{ij}(r_s)P_{jm}(r_s,r)(u_{2m}(r)u_{1n}(r)-u_{1m}(r)u_{2n}(r)) \notag \\
+& = +s_i\frac{1}{\Delta(r_s)}\mathbf{M}^-_{ij}(r_s) P_{jm}(r_s,r)\mathbf{m}^{+}_{nm}(r) \notag \\
+v_n^{(m-)}(r) &= -s_i\frac{1}{\Delta(r_s)}\mathbf{M}^+_{ij}(r_s)P_{jm}(r_s,r)(w_{2m}(r)w_{1n}(r)-w_{1m}(r)w_{2n}(r)) \notag \\
+& = -s_i\frac{1}{\Delta(r_s)}\mathbf{M}^+_{ij}(r_s)P_{jm}(r_s,r)\mathbf{m}^{-}_{nm}(r)
+\end{align}
+Defining
+\begin{align}\label{adjoint}
+f_m^+(r) & = +s_i\frac{1}{\Delta(r_s)}\mathbf{M}^-_{ij}(r_s) P_{jm}(r_s,r) \ \mathrm{for}\ r>r_s \notag \\
+f_m^-(r) &= -s_i\frac{1}{\Delta(r_s)}\mathbf{M}^+_{ij}(r_s) P_{jm}(r_s,r)\ \mathrm{for}\ r<r_s
+\end{align}
+we can write
+\begin{align}
+v_n^{(m+)}(r) & = f_m^+(r)\mathbf{m}^{+}_{nm}(r) \notag \\
+v_n^{(m-)}(r) &= f_m^-(r)\mathbf{m}^{-}_{nm}(r) \,.
+\end{align}
+The new vector $\mathbf{f}(r)$ satisfies again the negative transpose of the spheroidal equation system (the spheroidal adjoint system) with 
+\begin{equation}
+f_m^\pm(r_s) = \pm \frac{s_i}{\Delta(r_s)}\mathbf{M}^\mp_{ij}(r_s)\delta_{jm} = \pm \frac{s_i}{\Delta(r_s)}\mathbf{M}^\mp_{im}(r_s)= \mp \frac{s_i}{\Delta(r_s)}\mathbf{M}^\mp_{mi}(r_s)\,.
+\end{equation}
+To obtain the constants $b_1$ and $e_1$, we make again use of the propagator matrix and find:
+\begin{align}
+u_{2j}(r_s) &= P_{jm}(r_s,r_3) u_{2m}(r_3) = P_{jm}(r_s,r_3) \delta_{3m} = P_{j3}(r_s,r_3) \notag \\
+w_{2j}(r_s) &= P_{jm}(r_s,r_2) w_{2m}(r_2) = P_{jm}(r_s,r_2) \delta_{3m} = P_{j3}(r_s,r_2) \notag \\
+\end{align}
+and hence
+\begin{align}
+e_1 &= +s_i\frac{1}{\Delta(r_s)}\mathbf{M}^-_{ij}(r_s)P_{j3}(r_s,r_3) = f_3^+(r_3) \notag \\ 
+b_1 &= -s_i\frac{1}{\Delta(r_s)}\mathbf{M}^+_{ij}(r_s)P_{j3}(r_s,r_2) = f_3^-(r_2) \,.
+\end{align}
+Thus, in all cases, no additional integrations are required beyond the computation of basis solutions and minors and the integration of the spheroidal adjoint system up and downwards from the source or downwards only if the source is in the ocean.
+%
+\paragraph{Unit jump Green FK coefficients}
+%
+To avoid repeated integration of the spheroidal adjoint system if the source changes, the GEMINI code computes unit jump Green FK coefficients for each column of a unit source jump matrix $\mathbf{S}_{ir} = \delta_{ir}$ where the first index represents the component and the second index the source vector. The spheroidal adjoint system is integrated four times providing the matrix
+\begin{align}
+\mathbf{F}^\pm_{mr}(r) = \frac{1}{\Delta(r_s)}\mathbf{M}^\mp_{rj}(r_s) P_{jm}(r_s,r)\ \mathrm{with}\ \ 
+\mathbf{F}^\pm_{mr}(r_s) = \frac{1}{\Delta(r_s)}\mathbf{M}^\mp_{rm}(r_s) \,.
+\end{align}
+The unit jump Green FK coefficients in the mantle are then given by
+\begin{align}
+\mathbf{V}^{(m\pm)}_{nr}(r) = \mathbf{F}^\pm_{mr}(r)\mathbf{m}^{\pm}_{nm}(r)\,.
+\end{align}
+and 
+\begin{align}
+e_{1r} = \mathbf{F}^+_{3r}(r_3) \ \mathrm{and}\ \ b_{1r} = \mathbf{F}^-_{3r}(r_2) \,.
+\end{align}
+
+To compute wavefield for any source depth, each depth node is treated a potential source node. Then, an integration of the negative transposed spheroidal system would be required for each node, i.e we need propagator matrices $P_{jm}(r_p,r_q)$ where $r_p$ and $r_q$ are any two radial nodes.  Assume, we know the propagator $P_{jm}(r,r_0)$ for all nodes, where $r_0$ is a reference node. Moreover, assume we know the propagator $P_{jm}(r_0,r)$ for al nodes. Then,
+\begin{align}
+P_{jm}(r_p,r_q) = P_{jk}(r_p,r_0)P_{km}(r_0,r_q) \,.
+\end{align}
+Thus, in principle, an integration of the normal and negative transposed spheroidal system from one reference node to all other nodes is sufficient to obtain all necessary propagators! Can they be computed stably?
+%
+\subsection{Moment tensor source in the ocean}
+%
+What are the appropriate jump vectors for a moment tensor source in the fluid ocean? The system of ordinary differential equation in a fluid medium takes the form:
+\begin{align}
+\frac{dU_{lm}}{dr} &= -\frac{2}{r}U_{lm}+\left(\frac{1}{\lambda}-\frac{\ell(\ell+1)}{r^2\omega^2\rho}\right)R_{lm}-\frac{\ell(\ell+1)}{r\omega^2\rho}H_{lm} \notag \\
+\frac{dR_{lm}}{dr} &= -\omega^2\rho U_{lm}-G_{lm} \,.
+\end{align}
+Ina fluid, non-viscous fluid, the moment tensor should be isotropic, i.e. $M_{rr}=M_{\theta\theta}=M_{\phi\phi}=M_0$ and all off-diagonal elements should vanish. According to Dalkolmo's diploma thesis, page 39, we have (with $\gamma_l = \sqrt{(2l+1)/(4\pi)}$):
+\begin{align}
+H_{l0} &=  -\frac{\gamma_l}{2r_s^3}(M_{\theta\theta}+M_{\phi\phi})\delta(r-r_s) = -\frac{\gamma_l}{r_s^3}M_0\delta(r-r_s) \notag \\
+G_{l0} &= -\frac{\gamma_l}{r_s^2}M_{rr}\delta'(r-r_s)  = -\frac{\gamma_l}{r_s^2}M_0\delta'(r-r_s)\,,
+\end{align}
+the other coefficients vanish. The inhomogeneity vector $\mathbf{q}$ on the right hand side of the differential equation system is hence:
+\begin{align}
+\mathbf{q} = \left(\frac{\gamma_l\ell(\ell+1)}{r_s^4\omega^2\rho}M_0\delta(r-r_s),\frac{\gamma_l}{r_s^2}M_0\delta'(r-r_s)\right) \,.
+\end{align}
+Splitting this according to $\mathbf{q}=\mathbf{z}_1\delta(r-r_s)+\mathbf{z}_2\delta'(r-r_s)$ gives:
+\begin{align}
+\mathbf{z}_1 &= \left(\frac{\gamma_l\ell(\ell+1)}{r_s^4\omega^2\rho}M_0, 0\right) \,, \notag \\
+\mathbf{z}_2 &= \left(0, \frac{\gamma_l}{r_s^2}M_0\right)
+\end{align}
+The jump vector is then ($\mathbf{s} = \mathbf{z}_1+\mathbf{A}\mathbf{z}_2$)
+\begin{align}
+s_1 &=   \frac{\gamma_l\ell(\ell+1)}{r_s^4\omega^2\rho}M_0 +\left(\frac{1}{\lambda}-\frac{\ell(\ell+1)}{r_s^2\omega^2\rho}\right)\frac{\gamma_l}{r_s^2}M_0 = \frac{\gamma_l}{r_s^2\lambda}M_0 \notag \\
+s_2 &= 0 \,.
+\end{align}
+
+\end{document}
+
+
+

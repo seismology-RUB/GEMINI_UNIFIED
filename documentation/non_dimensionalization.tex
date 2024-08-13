@@ -1,0 +1,194 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{times}
+\usepackage[intlimits]{amsmath}
+%
+% for reviewers version: remove endfloat
+% for original version: keep endfloat
+%
+\usepackage{graphicx}
+\voffset-0.7in
+\hoffset-0.4in
+\addtolength{\textheight}{5\baselineskip}
+\addtolength{\textwidth}{3.0cm}
+\addtolength{\oddsidemargin}{-0.5cm}
+\renewcommand{\baselinestretch}{1.2}
+\pagestyle{myheadings} \markright{}
+\begin{document}
+\section{Non-dimensionalization of ODEs for a spherically symmetric earth}
+%
+To compute the seismic displacement in a spherically symmetric Earth, displacement and stress 
+are expanded into vector spherical harmonics. Then, the elastodynamic equation of motion reduces 
+to a system of ordinary differential equations (SODE) for the expansion coefficients which 
+depend on the radial coordinate. The seismic source is represented by the expansion coefficients 
+of the force or moment tensor density field. For a point source, we only need to solve a homogeneous
+differential equation system. But, the solution must have a jump at the source point:
+%
+\begin{equation}
+\frac{dy}{dr}=A(r)y(r) \quad\mbox{and}\quad y(r_s^+)-y(r_s^-) = s \,,
+\end{equation}
+%
+where $y(r)$ is the displacement-stress vector (DSV), $A(r)$ is the system matrix and $s$ the jump
+of the solution at the source radius. For spheroidal motion (P-SV), the DSV has four components 
+(if gravity is neglected) $(U,R,V,S)$ where $U$ and $V$ are radial and horizontal displacement, 
+respectively, and $R$ and $S$ are normal and tangential stress. A similar two component SODE 
+applies for toroidal motion and spheroidal motion in fluid regions. Alternatively, we may write
+%
+\begin{equation}
+\frac{dy}{dr}=A(r)y(r)+s\delta(r-r_s) \,,
+\end{equation}
+%
+where the delta-function has a dimension of inverse length.
+%
+For non-dimensionalization, we exemplarily consider the spheroidal case in solid regions. 
+The matrix $A$ has the form:
+%
+\begin{equation}
+A = \left(\begin{array}{cccc}
+-\frac{2F}{rC} & \frac{1}{C} & \ell(\ell+1)\frac{F}{rC} & 0 \\
+-\rho\omega^2+\frac{4}{r^2}(A-\frac{F^2}{C}-N) & \frac{2F}{rC}-\frac{2}{r} & -\frac{2\ell(\ell+1)}{r^2}(A-\frac{F^2}{C}-N) & \frac{\ell(\ell+1)}{r} \\
+-\frac{1}{r} & 0 & \frac{1}{r} & \frac{1}{L} \\
+-\frac{2}{r^2}(A-\frac{F^2}{C}-N) & -\frac{F}{rC} & -\rho\omega^2+\frac{1}{r^2}\ell(\ell+1)(A-\frac{F^2}{C})-\frac{2N}{r^2} & -\frac{3}{r} \\
+\end{array}\right) \,.
+\end{equation}
+%
+We introduce a normalization for length, $r_0$, one for density, $\rho_0$, and one for velocity, $v_0$.
+Elastic constants are normalized with $\rho_0v_0^2$ and frequency by $v_0/r_0$. The non-dimensional
+quantities are marked by a wiggle, e.~g.~$\tilde{F}$. In the same way, we normalize the displacement
+stress vector by factors $(1/r_0,1/(\rho_0v_0^2),1/r_0,1/(\rho_0v_0^2))$. We can write this normalization
+as a multiplication with a diagonal matrix 
+\begin{equation}
+D = \mbox{diag}\left(\frac{1}{r_0},\frac{1}{\rho_0v_0^2},\frac{1}{r_0},\frac{1}{\rho_0v_0^2}\right) \,,
+\end{equation}
+i.~e.~
+\begin{equation}
+\tilde{y} = Dy \,.
+\end{equation}
+Expressing the differential equations in terms of the non-dimensional displacement-stress vector, we get:
+\begin{equation}
+\frac{1}{r_0}\frac{d}{d\tilde{r}}D^{-1}\tilde{y} = AD^{-1}\tilde{y}+D^{-1}\tilde{s}\delta(r-r_s) \,.
+\end{equation}
+Multiplication from left by $r_0D$ finally leads to
+\begin{equation}
+\frac{d}{d\tilde{r}}\tilde{y} = r_0DAD^{-1}\tilde{y}+r_0\tilde{s}\delta(r-r_s) \,.
+\end{equation}
+Since the left hand side is dimensionless, the expression $r_0DAD^{-1}$ must also be dimensionless,
+and therefore must be equal to the non-dimensional version of matrix $A$, i.~e.~all dimensioned
+elements of $A$ replaced by their non-dimensional equivalents:
+\begin{equation}
+\tilde{A} = r_0DAD^{-1} \,.
+\end{equation}
+Explicitly, we find
+\begin{displaymath}
+\tilde{A} = 
+\left(\begin{array}{cccc}
+-\frac{2Fr_0}{rC} & \frac{\rho_0v_0^2}{C} & \ell(\ell+1)\frac{Fr_0}{rC} & 0 \\
+\frac{r_0^2}{\rho_0v_0^2}\left(-\rho\omega^2+\frac{4}{r^2}(A-\frac{F^2}{C}-N)\right) & \frac{2Fr_0}{rC}-\frac{2r_0}{r} & 
+\frac{r_0^2}{\rho_0v_0^2}\left(-\frac{2\ell(\ell+1)}{r^2}(A-\frac{F^2}{C}-N)\right) & \frac{\ell(\ell+1)r_0}{r} \\
+-\frac{r_0}{r} & 0 & \frac{r_0}{r} & \frac{\rho_0v_0^2}{L} \\
+\frac{r_0^2}{\rho_0v_0^2}\left(-\frac{2}{r^2}(A-\frac{F^2}{C}-N)\right) & -\frac{Fr_0}{rC} & 
+\frac{r_0^2}{\rho_0v_0^2}\left(-\rho\omega^2+\frac{\ell(\ell+1)}{r^2}(A-\frac{F^2}{C})-\frac{2N}{r^2}\right) & -\frac{3r_0}{r} \\
+\end{array}\right) \,.
+\end{displaymath}
+Similarly, the expression $r_0\delta(r-r_s)$ is also dimensionless, 
+as the delta function has a dimension of inverse length.
+Indeed,
+\begin{equation}
+\int\,\delta(r-r_s)dr = 1 = \int\,\delta(r-r_s)r_0d\tilde{r} \,,
+\end{equation}
+motivating the definition of the non-dimensional delta-function:
+\begin{equation}
+\delta(r-r_s)r_0 = \delta(\tilde{r}-\tilde{r}_s) \,.
+\end{equation}
+Thus, the non-dimensional version of the differential equation system is
+\begin{equation}
+\frac{d}{d\tilde{r}}\tilde{y} = \tilde{A}\tilde{y}+\tilde{s}\delta(\tilde{r}-\tilde{r}_s) \,.
+\end{equation}
+%
+Note that the non-dimensional angular frequency comes out as 
+\begin{displaymath}
+\tilde{\omega} = \omega\frac{r_0}{v_0} \,.
+\end{displaymath}
+The expression $\tilde{s}=Ds$ should be dimensionless, but when looking at the expressions for $s$ in \verb+gemini-displ.tex+,
+this seems not to be the case. However, in these expressions, a unit seismic moment or unit seismic force has been omitted.
+For a seismic force, the 2nd and 4th components of $s$ are proportional to $F_1/r^2$ where $F_1$ denotes the unit force.
+Non-dimensionalizing yields 
+\begin{displaymath}
+\frac{F_1}{r^2} = \frac{\tilde{F_1}\rho_0v_0^2r_0^2}{\tilde{r}^2r_0^2} = \frac{\tilde{F_1}}{\tilde{r}^2}\rho_0v_0^2 \,.
+\end{displaymath}
+Since the 2nd and 4th component of $s$ are stress components, they non-dimensionalize properly when the unit force
+is taken into account. A similar result is obtained for the moment tensor source terms.
+%
+\subsection{Non-dimensionalization in GEMINI}
+%
+GEMINI uses the following implicit non-dimensionalization scheme: $\rho_0 = 1\ \mbox{g}/\mbox{cm}^3$, $v_0 = 1\ \mbox{km}/\mbox{s}$,
+and $r_0 = 1\ \mbox{km}$. Thus, $\rho_0v_0^2 = 1\ \mbox{GPa}$. The original units for displacement and stress are hence
+km and GPa, respectively. Owing to the implicit non--dimensionalization, it is the non-dimensional force, $\tilde{F}_1$,
+which is set to 1. The real force is then $F_1 = \rho_0v_0^2r_0^2 = 10^{15}\ \mbox{N}$. Similarly, the real moment
+is $M_1 = \rho_0v_0^2r_0^3 = 10^{18}\ \mbox{Nm}$. The displacement for a single force of $10^{15}\ \mbox{N}$
+is hence $\tilde{U}\,\mbox{km}$, or, expressed as displacement per force, $\tilde{U}\cdot 10^{-12}\ \mbox{m}/\mbox{N}$. 
+For a moment tensor source, the displacement per moment is $\tilde{U}\cdot 10^{-15}\ \mbox{m}/\mbox{Nm}$.
+
+When GEMINI produces output for computing synthetics or for use with ASKI, it computes values of the non-dimensional
+quantities $(\tilde{U},\tilde{R},\tilde{V},\tilde{S})$ and potentially non-dimensional derivatives
+$(d\tilde{U}/d\tilde{r},d\tilde{V}/d\tilde{r})$ with meaning as described above for either non-dimensional unit force
+or non-dimensional unit moment tensor sources.
+
+To get back to SI units in GEMINI, we should introduce $r_0 = 1\,\mbox{m}$, $\rho_0 = 1\ \mbox{kg}/\mbox{m}^3$, and 
+$v_0 = 1\ \mbox{m}/\mbox{s}$. Then, $\rho_0v_0^2 = 1\ \mbox{Pa}$ and the dimensional units for displacement and stress are
+m and Pa, respectively. With the non-dimensional force, $\tilde{F}_1 = 1$, the real force is now $F_1 = 1\,\mbox{N}$.
+Similarly, for a unit non-dimensional seismic moment, the real moment is $M_1 = 1\,\mbox{Nm}$. Thus, the displacement
+for a real force of 1 N or a real moment of 1 Nm is $\tilde{U}\,\mbox{m}$. When using this scheme in a seismological
+application, the values of $\tilde{U}$ will become very small. Moreover, a look at the non-dimensional system matrix shows that the
+values of the matrix entries will vary by several orders of magnitude potentially corrupting the numerical
+accuracy of the integration. For this reason, the non-dimensionalization used in GEMINI seems to make sense and
+a rigid adherence to SI units appears to be disadvantageous.
+
+For shallow seismic applications where depths are on the order of meters but velocities still on the order of km/s,
+one might use $r_0 = 1\,\mbox{m}$ but still choose $\rho_0 = 1000\,\mbox{kg}/\mbox{m}^3$, and $v_0 = 1000\,\mbox{m}/\mbox{s}$.
+In that case, values of non-dimensional frequency $\tilde{\omega}$ no longer represent the unit Hz.
+Instead, for a real angular frequency of 1 kHz, we obtain now $\tilde{\omega} = 1$. Non-dimensional frequency hence
+represents the unit kHz! The real force decreases to $F_1 = \rho_0v_0^2r_0^2 = 10^9\,\mbox{N}$ and displacement per force
+is $\tilde{U}\cdot 10^{-9}\,\mbox{m}/\mbox{N}$.
+
+In general, displacement per force in unit m/N can be calculated according to the formula 
+\begin{displaymath}
+\mbox{displacement per force} = \tilde{U}\frac{r_0}{\rho_0v_0^2r_0^2} = \tilde{U}\frac{1}{\rho_0v_0^2r_0} \,,
+\end{displaymath}
+where $\rho_0$, $v_0$, $r_0$ must be given in SI units. Displacement per moment in unit m/(Nm) follows the formula
+\begin{displaymath}
+\mbox{displacement per moment} = \tilde{U}\frac{r_0}{\rho_0v_0^2r_0^3} = \tilde{U}\frac{1}{\rho_0v_0^2r_0^2} \,,
+\end{displaymath}
+%
+\subsection{Unit jump Green functions}
+%
+The definition of unit jump Green functions only makes sense if all quantities are non-dimensional. We set the non-dimensional
+jump vector to a unit vector pointing in the $l$-direction, $\tilde{s} = e_l$, and obtain the $l$-th unit jump Green functions
+as a solution of
+\begin{equation}
+\frac{d}{d\tilde{r}}G_l(\tilde{r},\tilde{r_s}) = \tilde{A}G_l(\tilde{r},\tilde{r_s})+e_l\delta(\tilde{r}-\tilde{r}_s) \,.
+\end{equation}
+Hence, all the derivations given in \verb+rezifrechet.tex+ apply to the non-dimensional unit jump Green function.
+%
+In particular, we have the reciprocity relation:
+\begin{equation}
+\tilde{r}_s^2 G_k^i(r_s,r_e) T_{il} = \tilde{r}_e^2 G_l^i(r_e,r_s) T_{ik} \,.
+\end{equation}
+Moreover, the expression for the Frechet derivative of the stress-displacement vector is:
+\begin{equation}
+\delta \tilde{y}(\tilde{r}_e) = -\sum_d \tilde{h}_d G_k(\tilde{r}_e,\tilde{r}_d)
+\left(\left[\tilde{A}(\tilde{r}_d)\right]^+_- \tilde{y}(\tilde{r}_d)\right)_k 
++\int G_k(\tilde{r}_e,\tilde{r})(\delta \tilde{A}(\tilde{r}) \tilde{y}(\tilde{r}))_k \,d\tilde{r} \,.
+\end{equation}
+Identifying the DSV-vector with the unit jump Green function for a source at $r_s$, we obtain,
+\begin{equation}
+\delta G_l(\tilde{r}_e,\tilde{r}_s) = -\sum_d \tilde{h}_d G_k(\tilde{r}_e,\tilde{r}_d)
+\left(\left[\tilde{A}(\tilde{r}_d)\right]^+_- G_l(\tilde{r}_d,\tilde{r}_s)\right)_k 
++\int G_k(\tilde{r}_e,\tilde{r})(\delta \tilde{A}(\tilde{r}) G_l(\tilde{r},\tilde{r}_s))_k \,d\tilde{r} \,.
+\end{equation}
+Expressed in component notation, we obtain:
+\begin{equation}
+\delta G^i_l(\tilde{r}_e,\tilde{r}_s) = -\sum_d \tilde{h}_d G^i_k(\tilde{r}_e,\tilde{r}_d)
+\left(\left[\tilde{A}_{kj}(\tilde{r}_d)\right]^+_- G^j_l(\tilde{r}_d,\tilde{r}_s)\right)_k 
++\int G^i_k(\tilde{r}_e,\tilde{r})(\delta \tilde{A}_{kj}(\tilde{r}) G^j_l(\tilde{r},\tilde{r}_s))_k \,d\tilde{r} \,.
+\end{equation}
+\end{document}

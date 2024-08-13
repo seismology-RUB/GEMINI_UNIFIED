@@ -1,0 +1,104 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{times}
+\usepackage[intlimits]{amsmath}
+\usepackage{graphicx}
+\usepackage[paperwidth=8.26in,paperheight=11.69in,
+            left=1in,right=1in,top=1in,
+            bottom=1in,headheight=0in,footskip=0.5in]{geometry}
+\renewcommand{\v}[1]{{\bf #1}}
+\pagestyle{myheadings} \markright{}
+\begin{document}
+\setlength{\parindent}{0cm}
+\addtolength{\parskip}{0.1cm}
+\section{Coordinate systems used in Specfem-Gemini coupling}
+\subsection{Epicentral spherical system}
+GEMINI computes displacement components in a spherical coordinate system with north pole at the epicenter whereas positions of sources and receivers are given in a spherical geographical coordinate system. The zero longitude meridian of the epicentral spherical system is identical with the geographical meridian running through the epicenter. We denote by $(\theta,\phi)$ the coordinates of the geographical spherical system and by $(\delta,\xi)$ the coordinates of the epicentral system. In addition, we use $r$ for radius in both systems.
+%
+\subsection{Epicentral and geographical cartesian systems}
+In addition to the spherical coordinate systems, it is often convenient to use associated cartesian systems with origin at the center of the earth. We use an epicentral cartesian system (EC) with $z$-axis through the epicenter and $x$-axis cutting through the intersection of the zero-longitude meridian and the equator of the epicentral spherical system. The geographical cartesian system (GC) has its $z$-axis running through the north pole and the $x$-axis cutting through the intersection of Greenwich meridian and equator.
+%
+\subsection{Relations between epicentral spherical and epicentral cartesian system} 
+Let us assume a receiver with coordinates $R(r,\delta,\xi)$ in the epicentral spherical system. Its epicentral cartesian coordinates are given by
+\begin{align}
+x &= r\sin\delta\cos\xi \notag \\
+y &= r\sin\delta\sin\xi \notag \\
+z &= r\cos\delta \,.
+\end{align}
+The basis vectors of the epicentral spherical system at $R$ are given by
+\begin{align}
+\v{f}_r &= \frac{\partial\v{r}}{\partial r} = \sin\delta\cos\xi\,\v{k}_x + \sin\delta\sin\xi\,\v{k}_y+\cos\delta\,\v{k}_z \notag \\
+\v{f}_\delta &= \frac{1}{r}\frac{\partial\v{r}}{\partial\delta} = \cos\delta\cos\xi\,\v{k}_x + \cos\delta\sin\xi\,\v{k}_y -\sin\delta\,\v{k}_z  \notag \\
+\v{f}_\xi &= \frac{1}{r\sin\delta}\frac{\partial\v{r}}{\partial\xi} = -\sin\xi\,\v{k}_x + \cos\xi\,\v{k}_y \,,
+\end{align}
+where the $\v{k}_i$ denote the basis vectors of the epicentral cartesian system.
+Since vector components transform in the same way as their corresponding basis vectors if the coordinate axes are rotated, we immediately find for some vector $\v{u}$:
+\begin{align}\label{eq:ectoes}
+u_r &= \sin\delta\cos\xi\, u_x + \sin\delta\sin\xi\, u_y+\cos\delta\, u_z \notag \\
+u_\delta &= \cos\delta\cos\xi\, u_x + \cos\delta\sin\xi\, u_y -\sin\delta\, u_z  \notag \\
+u_\xi &= -\sin\xi\, u_x + \cos\xi\, u_y \,.
+\end{align}      
+Because of the orthogonality of the involved rotation matrix, the inverse transform is easily obtained using its transposed:
+\begin{align}\label{eq:estoec}
+u_x &= \sin\delta\cos\xi\, u_r + \cos\delta\cos\xi\,u_\delta-\sin\xi\,u_\xi \notag \\
+u_y &= \sin\delta\sin\xi\, u_r + \cos\delta\sin\xi\,u_\delta+\cos\xi\,u_\xi  \notag \\
+u_z &= \cos\delta\,u_r -\sin\delta\,u_\delta \,.
+\end{align}      
+You may test these relations by setting $\v{u}=\v{r}$ with epicentral cartesian components $(x,y,z)$ and epicentral spherical components $(r,0,0)$. 
+%
+\subsection{Relations between epicentral cartesian and geographical cartesian system}
+We will soon see that it is advantageous to know the transformation from epicentral cartesian to geographical cartesian basis vectors. Let us denote the geographical coordinates of the epicenter by $(\theta_s,\phi_s)$. Rotation of the epicentral cartesian basis vectors into the geographical cartesian ones involves a clockwise rotation around the epicentral $y$-axis by $\theta_s$ to align the $z$-axis with the geographical one, and a clockwise rotation around the new $z$-axis by $\phi_s$ to align the $x$-axes. The first rotation is given by:
+\begin{align}
+\v{h}_x &= \cos\theta_s\,\v{k}_x +\sin\theta_s\,\v{k}_z \notag \\
+\v{h}_y &= \v{k}_y  \notag \\
+\v{h}_z &= -\sin\theta_s\,\v{k}_x + \cos\theta_s\,\v{k}_z \,.
+\end{align}      
+This relation can be checked by considering $\theta_s=0$ and $\phi_s=0$, where EC and GC coincide, and by considering $\theta_s=\pi/2$ and $\phi_s=0$ where $\v{k}_z$ goes through the geographical equator and $\v{k}_x$ points to the geographical south pole. Thus, $\v{h}_x=\v{k}_z$ and $\v{h}_z=-\v{k}_x$ as predicted by our equations. The ensuing clockwise rotation around the $\v{h}_z$ axis by $\phi_s$ is given by:
+\begin{align}
+\v{g}_x &= \cos\phi_s\,\v{h}_x - \sin\phi_s\,\v{h}_y \notag \\
+\v{g}_y &= \sin\phi_s\,\v{h}_x +\cos\phi_s\,\v{h}_y  \notag \\
+\v{g}_z &= \v{h}_z \,.
+\end{align}      
+The signs can be checked by setting $\phi_s=\pi/2$. In that case, $\v{h}_x$ intersects the 90 degree meridian and is hence equal to $\v{g}_y$ while $\v{h}_y$ intersects the 180 degree meridian and is thus equal to $-\v{g}_x$. Combining the two rotations leads to
+\begin{align}\label{eq:ectogc}
+\v{g}_x &= \cos\phi_s (\cos\theta_s\,\v{k}_x +\sin\theta_s\,\v{k}_z) - \sin\phi_s\,\v{k}_y = \cos\theta_s\cos\phi_s\,\v{k}_x - \sin\phi_s\,\v{k}_y + \sin\theta_s\cos\phi_s\,\v{k}_z \notag \\
+\v{g}_y &= \sin\phi_s (\cos\theta_s\,\v{k}_x +\sin\theta_s\,\v{k}_z) +\cos\phi_s\,\v{k}_y  = \cos\theta_s\sin\phi_s\,\v{k}_x + \cos\phi_s\,\v{k}_y + \sin\theta_s\sin\phi_s\,\v{k}_z\notag\\
+\v{g}_z &= -\sin\theta_s\,\v{k}_x + \cos\theta_s\,\v{k}_z \,.
+\end{align}      
+The inverse relation is:
+\begin{align}\label{eq:gctoec}
+\v{k}_x &= \cos\theta_s\cos\phi_s\,\v{g}_x +\cos\theta_s\sin\phi_s\,\v{g}_y -\sin\theta_s\,\v{g}_z \notag \\
+\v{k}_y &= - \sin\phi_s\,\v{g}_x + \cos\phi_s\,\v{g}_y \notag\\
+\v{k}_z &= \sin\theta_s\cos\phi_s\,\v{g}_x + \sin\theta_s\sin\phi_s\,\v{g}_y + \cos\theta_s\,\v{g}_z \,.
+\end{align}      
+
+%
+\section{Some component transformations needed with Gemini and Specfem}
+\subsection{Epicentral spherical to ZNE}
+One important transformation is from epicentral spherical components to a local ZNE system at the receiver. We can do this conversion by calculating the propagation direction at the receiver and rotate the epicentral basis vectors at $R$ accordingly, taking into account that ZNE is a left handed system. But if we use instead the order ENZ, we have a right-handed system. Let us define the propagation direction as the angle $\alpha$ between local south at the receiver and the $\v{f}_\delta$-basis vector at $R$. Let us define the basis vectors $\v{l}_e$, $\v{l}_n$ and $\v{l}_z$ pointing east, north and vertical at $R$, respectively. Then the relation between the basis vectors is given by:
+\begin{align}
+\v{f}_r &= \v{l}_z \notag \\
+\v{f}_\delta &= \sin\alpha\,\v{l}_e - \cos\alpha\,\v{l}_n \notag \\
+\v{f}_\xi &= \cos\alpha\,\v{l}_e + \sin\alpha\,\v{l}_n  \,.
+\end{align}
+This relation can be checked by considering the case $\alpha=0$ when the wave propagates straight south at the receiver. Then $\v{f}_\delta$ equals $-\v{l}_n$ and $\v{f}_\xi$ equals $\v{l}_e$ as predicted. For $\alpha=\pi/2$ the wave propagates straight east at $R$ and, hence, $\v{f}_\delta$ equals $\v{l}_e$ and $\v{f}_\xi$ equals $\v{l}_n$.
+
+We could also make use of the relations derived above as follows: take the epicentral components at R and compute epicentral cartesian components using eq.~(\ref{eq:estoec}). Then, switch to geographical cartesian ones using eq.~(\ref{eq:ectogc}). Now apply the inverse of eq.~(\ref{eq:ectogc}) but replace $(\theta_s,\phi_s)$ by $(\theta_r,\phi_r)$. This gives us receiver centered cartesian components at R but with the x-axis pointing south, $y$ pointing east and $z$ pointing vertical up. So, we need to take the negative of the $x$-component to obtain ZNE finally.
+%
+\subsection{Specfem cartesian box coordinates}
+In Specfem, we use cartesian coordinates centered at some point on the sphere with coordinates $(\theta_c,\phi_c)$ representing the center of the computational box with the peculiarity that the $x$-axis points east and the $y$-axis north. So, when converting from epicentral spherical components as provided by Gemini, we first convert to epicentral cartesian, then to geographical cartesian, then to box centered cartesian and, finally, rotate counterclockwise around the vertical axis by 90 degrees. Denoting the box centered basis vectors by $\v{b}_i$ and the rotated ones by $\v{r}_i$ we get:
+\begin{align}
+\v{r}_x &= \cos\gamma\,\v{b}_x + \sin\gamma\,\v{b}_y \notag \\
+\v{r}_y &= -\sin\gamma\,\v{b}_x + \cos\gamma\,\v{b}_y \notag \\
+\v{r}_z &= \v{b}_z  \,.
+\end{align}
+With $\gamma=\pi/2$, we get $\v{r}_x = \v{b}_y$ and $\v{r}_y = -\v{b}_x$, as expected.
+
+
+
+
+
+
+
+
+
+\end{document}

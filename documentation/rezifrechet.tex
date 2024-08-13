@@ -1,0 +1,488 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{times}
+\usepackage[intlimits]{amsmath}
+%
+% for reviewers version: remove endfloat
+% for original version: keep endfloat
+%
+\usepackage{graphicx}
+\voffset-0.7in
+\hoffset-0.4in
+\addtolength{\textheight}{5\baselineskip}
+\addtolength{\textwidth}{3.0cm}
+\addtolength{\oddsidemargin}{-0.5cm}
+\renewcommand{\baselinestretch}{1.2}
+\pagestyle{myheadings} \markright{}
+\begin{document}
+\section{Reciprocity of Greens function}
+%
+To compute the seismic displacement in a spherically symmetric Earth, displacement and stress are expanded into vector spherical harmonics and the elastodynamic equation of motion reduces to a system of ordinary differential equations (SODE) for the expansion coefficients which depend on the radial coordinate. The seismic source is represented by the expansion coefficients of the force or moment tensor density field. We write the SODE as follows:
+%
+\begin{equation}
+\frac{dy}{dr}=A(r)y(r)+z(r) \,
+\end{equation}
+%
+where $y(r)$ is the displacement-stress vector (DSV), $A(r)$ is the system matrix and $z(r)$ is the source term. For spheroidal motion (P-SV), the DSV has four components (if gravity is neglected) $(U,R,V,S)$ where $U$ and $V$ are radial and horizontal displacement, respectively, and $R$ and $S$ are normal and tangential stress. A similar two component SODE applies for toroidal motion and spheroidal motion in fluid regions. We consider here spheroidal motion with possible fluid regions. In solid regions, the matrix $A$ has the form:
+%
+\begin{equation}
+A = \left(\begin{array}{cccc}
+-\frac{2F}{rC} & \frac{1}{C} & \ell(\ell+1)\frac{F}{rC} & 0 \\
+-\rho\omega^2+\frac{4}{r^2}(A-\frac{F^2}{C}-N) & \frac{2F}{rC}-\frac{2}{r} & -\frac{2\ell(\ell+1)}{r^2}(A-\frac{F^2}{C}-N) & \frac{\ell(\ell+1)}{r} \\
+-\frac{1}{r} & 0 & \frac{1}{r} & \frac{1}{L} \\
+-\frac{2}{r^2}(A-\frac{F^2}{C}-N) & -\frac{F}{rC} & -\rho\omega^2+\frac{1}{r^2}\ell(\ell+1)(A-\frac{F^2}{C})-\frac{2N}{r^2} & -\frac{3}{r} \\
+\end{array}\right) \,,
+\end{equation}
+%
+in fluid regions it reads:
+%
+\begin{equation}
+A = \left(\begin{array}{cccc}
+-\frac{2}{r} & \frac{1}{C}-\frac{\ell(\ell+1)}{\rho\omega^2 r^2} \\
+-\omega^2\rho & 0 \\
+\end{array}\right) \,.
+\end{equation}
+%
+and for toroidal motion it reads
+%
+\begin{equation}
+A = \left(\begin{array}{cccc}
++\frac{1}{r} & \frac{1}{L} \\
+-\omega^2\rho-\frac{N}{r^2}(2-\ell(\ell+1)) & -\frac{3}{r} \\
+\end{array}\right) \,.
+\end{equation}
+%
+Solutions of the SODE when $z(r)$ is a delta function at some radius $r_s$ (the source radius) are called Green functions. Because each component of $z(r)$ may have the delta-function term, there are actually four basis Green functions each of which has four components. We denote the Green functions here by $G_l^i(r,r_s)$ where the subscripts indicates which component of $z(r)$ has the delta function, i.e. the index of the basis solution, and where the superscript indicates the component. A basis Green function satisfies the following SODE:
+%
+\begin{equation}
+\frac{dG_l^i(r,r_s)}{dr}=A_{ij}(r)G_l^j(r,r_s)+\delta_l^i\delta(r-r_s) \,,
+\end{equation}
+or in vector notation
+\begin{equation}
+\frac{dG_l(r,r_s)}{dr}=A(r)G_l(r,r_s)+e_l\delta(r-r_s) \,,
+\end{equation}
+%
+where $e_l$ is a unit vector in $l$-direction.
+%
+The reciprocity relation we shall derive is a mathematical expression of the fact that source and receiver are exchangeable in a certain sense. That is, if we know a basis Green function for a source at $r_s$ and a receiver at $r_e$ we can compute another basis Green function for a source at $r_e$ and a receiver at $r_s$. For the derivation, we write down the SODE for another Green function, now for a source at $r_e$:
+%
+\begin{equation}
+\frac{dG_k(r,r_e)}{dr}=A(r)G_k(r,r_e)+e_k\delta(r-r_e) \,.
+\end{equation}
+%
+For a smooth derivation of reciprocity, we use a new DSV defined by $w=rKy$, where 
+%
+\begin{equation}
+K = \left(\begin{array}{cccc}
+1 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 \\
+0 & 0 & \sqrt{\ell(\ell+1)} & 0 \\
+0 & 0 & 0 & \sqrt{\ell(\ell+1)} \\
+\end{array}\right) \,.
+\end{equation}
+%
+The new DSV satisfies the equation:
+%
+\begin{equation}
+\frac{dw}{dr}=rK\frac{dy}{dr}+Ky=rKAy+rKz+Ky=(KAK^{-1}+\frac{1}{r}I)w+rKz \,.
+\end{equation}
+%
+We denote the new matrix on the right hand side by
+\begin{equation}
+S=KAK^{-1}+\frac{1}{r}I \,.
+\end{equation}
+%
+This matrix possesses a skew symmetry which can be expressed using the orthogonal matrix 
+\begin{equation}
+\Sigma = \left(\begin{array}{cccc}
+0 & 1 & 0 & 0 \\
+-1 & 0 & 0 & 0 \\
+0 & 0 & 0 & 1 \\
+0 & 0 & -1 & 0 \\
+\end{array}\right) \quad \Sigma^T=-\Sigma=\Sigma^{-1}
+\end{equation}
+%
+as
+\begin{equation}
+\Sigma S = (\Sigma S)^T \,.
+\end{equation}
+%
+In other words, the matrix $\Sigma S$ is symmetric. If we define new basis Green functions $H_l(r,r_s)=rKG_l(r,r_s)$ and $H_k(r,r_e)=rKG_k(r,r_e)$, they obey the equations
+%
+\begin{eqnarray}
+\frac{dH_l(r,r_s)}{dr} & = & S(r)H_l(r,r_s)+rKe_l\delta(r-r_s) \nonumber \\
+\frac{dH_k(r,r_e)}{dr} & = & S(r)H_k(r,r_e)+rKe_k\delta(r-r_e)
+\end{eqnarray}
+%
+We now multiply the first equation by $H_k^T(r,r_e)\Sigma$ and the second by $H_l^T(r,r_s)\Sigma$,
+%
+\begin{eqnarray}
+H_k^T(r,r_e)\Sigma\frac{dH_l(r,r_s)}{dr} & = & H_k^T(r,r_e)\Sigma S(r)H_l(r,r_s)+H_k^T(r,r_e)\Sigma Kre_l\delta(r-r_s) \nonumber \\
+H_l^T(r,r_s)\Sigma\frac{dH_k(r,r_e)}{dr} & = & H_l^T(r,r_s)\Sigma S(r)H_k(r,r_e)+H_l^T(r,r_s)\Sigma Kre_k\delta(r-r_e) \,,
+\end{eqnarray}
+%
+and subtract the two equations. The first terms on the right hand side
+cancel because of the symmetry of $\Sigma S$ and we obtain:
+\begin{equation}
+H_k^T(r,r_e)\Sigma\frac{dH_l(r,r_s)}{dr}-H_l^T(r,r_s)\Sigma\frac{dH_k(r,r_e)}{dr}=
+H_k^T(r,r_e)\Sigma Kre_l\delta(r-r_s) - H_l^T(r,r_s)\Sigma Kre_k\delta(r-r_e) \,.
+\end{equation}
+%
+The left hand side is equal to
+\begin{equation}
+\frac{d}{dr}\left[H_k^T(r,r_e)\Sigma H_l(r,r_s)\right]
+\end{equation}
+and upon integration over radius we get
+\begin{equation}
+\sum_d \left[H_k^T(r_d,r_e)\Sigma H_l(r_d,r_s)\right]^-_+ = H_k^T(r_s,r_e)\Sigma Kr_se_l-H_l^T(r_e,r_s)\Sigma Kr_ee_k
+\end{equation}
+where on the left hand side the sum is over the jump of the bracketed expression at internal discontinuities in the model. Because of the continuity of the Green functions at internal discontinuities and the zero-stress conditions at the surface, the term on the left hand side vanishes and we get the \emph{reciprocity relation}:
+\begin{equation}
+H_k^T(r_s,r_e)\Sigma Kr_se_l=H_l^T(r_e,r_s)\Sigma Kr_ee_k \,.
+\end{equation}
+%
+Reinserting the original Green funcions, we obtain the desired result:
+\begin{equation}
+r_s^2G_k^T(r_s,r_e)K^T\Sigma Ke_l=r_e^2 G_l^T(r_e,r_s)K^T\Sigma Ke_k \,.
+\end{equation}
+%
+If we define a matrix 
+\begin{equation}
+T=K^T\Sigma K=\left(\begin{array}{cccc}
+0 & 1 & 0 & 0 \\
+-1 & 0 & 0 & 0 \\
+0 & 0 & 0 & \ell(\ell+1) \\
+0 & 0 & -\ell(\ell+1) & 0 \\
+\end{array}\right)
+\end{equation}
+%
+we can also write down the reciprocity relation in index notation:
+\begin{equation}
+r_s^2 G_k^i(r_s,r_e) T_{il} = r_e^2 G_l^i(r_e,r_s) T_{ik} \,.
+\end{equation}
+Because $l$ and $k$ can be chosen freely, there exists a total of 16 reciprocity relations:
+\begin{eqnarray}
+r_s^2 G_1^1(r_s,r_e) & = & -r_e^2 G_2^2(r_e,r_s) \nonumber \\
+r_s^2 G_1^2(r_s,r_e) & = & +r_e^2 G_1^2(r_e,r_s) \nonumber \\
+r_s^2 G_1^3(r_s,r_e) & = & -r_e^2 G_4^2(r_e,r_s) \nonumber \\
+r_s^2 G_1^4(r_s,r_e) & = & +r_e^2 G_3^2(r_e,r_s)
+\end{eqnarray}
+\begin{eqnarray}
+r_s^2 G_2^1(r_s,r_e) & = & +r_e^2 G_2^1(r_e,r_s) \nonumber \\
+r_s^2 G_2^2(r_s,r_e) & = & -r_e^2 G_1^1(r_e,r_s) \nonumber \\
+r_s^2 G_2^3(r_s,r_e) & = & +r_e^2 G_4^1(r_e,r_s) \nonumber \\
+r_s^2 G_2^4(r_s,r_e) & = & -r_e^2 G_3^1(r_e,r_s)
+\end{eqnarray}
+\begin{eqnarray}
+r_s^2 G_3^1(r_s,r_e) & = & -r_e^2 G_2^4(r_e,r_s)\ell(\ell+1) \nonumber \\
+r_s^2 G_3^2(r_s,r_e) & = & +r_e^2 G_1^4(r_e,r_s)\ell(\ell+1) \nonumber \\
+r_s^2 G_3^3(r_s,r_e) & = & -r_e^2 G_4^4(r_e,r_s) \nonumber \\
+r_s^2 G_3^4(r_s,r_e) & = & +r_e^2 G_3^4(r_e,r_s)
+\end{eqnarray}
+\begin{eqnarray}
+r_s^2 G_4^1(r_s,r_e) & = & +r_e^2 G_2^3(r_e,r_s)\ell(\ell+1) \nonumber \\
+r_s^2 G_4^2(r_s,r_e) & = & -r_e^2 G_1^3(r_e,r_s)\ell(\ell+1) \nonumber \\
+r_s^2 G_4^3(r_s,r_e) & = & +r_e^2 G_4^3(r_e,r_s) \nonumber \\
+r_s^2 G_4^4(r_s,r_e) & = & -r_e^2 G_3^3(r_e,r_s) \,.
+\end{eqnarray}
+Remember that the lower index denotes the basis solution (which component of $z(r)$ has the delta function) and the upper index denotes the component $(U,R,V,S)$.
+The four relations involving $G_1^1$, $G_1^2$, $G_2^1$ and $G_2^2$ are valid for the fluid and the toroidal case.
+
+We can find a more compact expression for all reciprocity relations by writing them in matrix form. We start from the relation:
+\begin{equation}
+r_s^2 G_k^i(r_s,r_e) T_{il} = r_e^2 G_l^i(r_e,r_s) T_{ik} \,.
+\end{equation}
+Let us denote by $T^{-1}$ the inverse matrix of $T=K^T\Sigma K = K\Sigma K$:
+\begin{equation}
+T^{-1} = K^{-1}\Sigma^{-1} K^{-1} = -K^{-1}\Sigma K^{-1} 
+\left(\begin{array}{cccc}
+0 & -1 & 0 & 0 \\
++1 & 0 & 0 & 0 \\
+0 & 0 & 0 & -\frac{1}{\ell(\ell+1)} \\
+0 & 0 & +\frac{1}{\ell(\ell+1)} & 0 \\
+\end{array}\right)
+\end{equation}
+Multiplying by $T^{-1}_{ln}$ on both sides and using $T_{il}T^{-1}_{ln}=\delta_{in}$, we find:
+\begin{equation}
+G_k^n(r_s,r_e) = \frac{r_e^2}{r_s^2} (T^{-1})_{ln} G_l^i(r_e,r_s) T_{ik} = \frac{r_e^2}{r_s^2} (T^{-T})_{nl} G_l^i(r_e,r_s) T_{ik}\,.
+\end{equation}
+%
+\subsection{Special cases of reciprocity}
+% 
+We first consider the case where $r_s$ and $r_e$ are in the same fluid region. Then, we only have Green functions with the first two
+components and the first two jump vectors. Denoting indices running from 1 to 2 by Greek indices, we find
+\begin{equation}
+G_\rho^\nu(r_s,r_e) = \frac{r_e^2}{r_s^2} (T^{-T})_{\nu\mu} G_\mu^\sigma(r_e,r_s) T_{\sigma\rho}\,.
+\end{equation}
+Thus, we can use the upper left 2x2 quadrant of matrix $T$, and the upper left 2x2 quadrant of matrix $T^{-T}$ which are equal to
+\begin{equation}
+\left(\begin{array}{cc}
+0 & 1  \\
+-1 & 0 \\
+\end{array}\right) \,.
+\end{equation}
+Now assume that $r_s$ and $r_e$ are in the same solid region with a force excitation. Then, we only need to compute Green functions
+for jump vectors 2 and 4, as only the 2nd and 4th component of the source jump are non-zero. Using the general reciprocity formula and
+restricting the indices appropriately, we find:
+\begin{align}
+G_2^n(r_s,r_e) &= \frac{r_e^2}{r_s^2}\left( (T^{-T})_{n2} G_2^i(r_e,r_s) T_{i2} + (T^{-T})_{n4} G_4^i(r_e,r_s) T_{i2} \right) \notag\\
+G_4^n(r_s,r_e) &= \frac{r_e^2}{r_s^2}\left( (T^{-T})_{n2} G_2^i(r_e,r_s) T_{i4} + (T^{-T})_{n4} G_4^i(r_e,r_s) T_{i4} \right) \,.
+\end{align}
+Thus, we only need the 2nd and 4th column of the matrices $T$ and $T^{-T}$, explicitly
+\begin{equation}
+\tilde{T} = \left(\begin{array}{cc}
+1 & 0 \\
+0 & 0 \\
+0 & \ell(\ell+1) \\
+0 & 0 \\
+\end{array}\right)\quad \mathrm{and}\quad 
+\tilde{(T^{-T})} = \left(\begin{array}{cc}
+1 & 0 \\
+0 & 0 \\
+0 & \frac{1}{\ell(\ell+1)} \\
+0 & 0 \\
+\end{array}\right)
+\end{equation}
+Defining a new Green matrix $\tilde{G}$ by
+\begin{equation}
+\tilde{G} = \left(\begin{array}{cc}
+G_2^1 & G_4^1 \\
+G_2^2 & G_4^2 \\
+G_2^3 & G_4^3 \\
+G_2^4 & G_4^4 \\
+\end{array}\right) \,,
+\end{equation}
+we can write the reciprocity relation as
+\begin{align}
+\tilde{G}_\rho^n(r_s,r_e) &= \frac{r_e^2}{r_s^2}\tilde{(T^{-T})}_{n\nu} \tilde{G}_\nu^i(r_e,r_s) \tilde{T}_{i\rho} \,.
+\end{align}
+
+Next, we consider the case of a moment tensor source where $r_s$ is in the ocean and $r_e$ is in a solid region. Again, specializing the general
+reciprocity relation using Greek indices running from 1 to 2, we get:
+\begin{equation}
+G_k^\nu(r_s,r_e) = \frac{r_e^2}{r_s^2} (T^{-T})_{\nu\sigma} G_\sigma^i(r_e,r_s) T_{ik}\,.
+\end{equation}
+Thus, from $T^{-T}$, we only need the upper left quadrant equal to
+\begin{equation}
+\left(\begin{array}{cc}
+0 & 1  \\
+-1 & 0 \\
+\end{array}\right) \,.
+\end{equation}
+Conversely, we may consider a moment tensor source with $r_s$ in the crust or mantle and a receiver in a fluid region at $r_e$. Then we get:
+\begin{equation}
+G_\nu^n(r_s,r_e) = \frac{r_e^2}{r_s^2} (T^{-T})_{nl} G_l^\sigma(r_e,r_s) T_{\sigma \nu}\,.
+\end{equation}
+
+Instead, we may consider a force source in a solid region at $r_s$ and a receiver in the ocean region at $r_e$. Specializing the reciprocity relation
+leads to
+\begin{align}
+G_1^n(r_s,r_e) &= \frac{r_e^2}{r_s^2}\left( (T^{-T})_{n2} G_2^\nu(r_e,r_s) T_{\nu 1} + (T^{-T})_{n4} G_4^\nu(r_e,r_s) T_{\nu 1} \right) \notag\\
+G_2^n(r_s,r_e) &= \frac{r_e^2}{r_s^2}\left( (T^{-T})_{n2} G_2^\nu(r_e,r_s) T_{\nu 2} + (T^{-T})_{n4} G_4^\nu(r_e,r_s) T_{\nu 2} \right) \,.
+\end{align}
+Thus, we need columns 2 and 4 of $T^{-T}$ and the upper left quadrant of $T$ and the upper half of the Green matrix $\tilde{G}$.
+
+Conversely, we may consider a force source in the ocean at $r_s$ and a receiver in a solid region at $r_e$. Then, we find:
+\begin{align}
+G_{2}^\nu(r_s,r_e) &= \frac{r_e^2}{r_s^2} (T^{-T})_{\nu\sigma} G_\sigma^i(r_e,r_s) T_{i {2}} \notag\\
+G_{4}^\nu(r_s,r_e) &= \frac{r_e^2}{r_s^2} (T^{-T})_{\nu\sigma} G_\sigma^i(r_e,r_s) T_{i {4}}\,.
+\end{align}
+ 
+%-----------------------------------------------------------------------------------------------------------
+\section{Frechet kernels}
+%
+With the Green functions and the reciprocity principle at hand we can compute Frechet derivatives of the pf-spectra with respect to the model parameters. Again we use the modified DSV $w=rKy$ for an easier derivation. If the model is changed including possible displacements of discontinuities, the DSV changes too, from $w(r)$ to $w(r)+\delta w(r)$. The changed DSV satisfies the equation
+\begin{equation}
+\frac{d}{dr}(w+\delta w)=(S+\delta S)(w+\delta w)+rKz
+\end{equation}
+and the boundary condition at a displaced discontinuity at $r_d+h$ is
+\begin{equation}
+w^+(r_d+h)+\delta w^+(r_d+h)-w^-(r_d+h)-\delta w^+(r_d+h) = 0
+\end{equation}
+where the superscripts $\pm$ denote the DSV above and below the discontinuity, respectively.
+The boundary condition is linearized by a Taylor expansion of the DSV below and above the discontinuity:
+\begin{equation}
+w^\pm(r_d+h)=w^\pm(r_d)+h\frac{dw^\pm}{dr} \quad \mbox{and} \quad \delta w^\pm(r_d+h)=\delta w^\pm(r_d)\,,
+\end{equation}
+and $\delta w^\pm(r_d)$ is the continuation of $\delta w^\pm(r_d+h)$ to the unperturbed interface. 
+Inserting the Taylor expansion and using the SODE for the unperturbed DSV, we get
+\begin{equation}
+w^+(r_d)+hS^+(r_d)w^+(r_d)+\delta w^+(r_d)-w^-(r_d)-hS^-(r_d)w^-(r_d) -\delta w^-(r_d)=0 \,.
+\end{equation}
+Since the unperturbed DSV is continuous at the unperturbed discontinuities, we finally obtain
+\begin{equation}
+\delta w^+(r_d)-\delta w^-(r_d)=h(S^-(r_d)w^-(r_d)-S^+(r_d)w^+(r_d)) \,.
+\end{equation}
+Thus, we can treat actually treat $\delta w$ as a function having a jump at $r_d$ and not $r_d+h$.
+If we only keep terms linear in the perturbations, we obtain the SODE
+\begin{equation}
+\frac{d}{dr}\delta w=S\delta w +\delta S w \,,
+\end{equation}
+which is now assumed to be valid within each layer of the unperturbed medium.
+To derive expressions for the Frechet kernels, we use the Green function of the unperturbed medium for a source at the receiver, which satisfies the equation
+\begin{equation}
+\frac{dH_l(r,r_e)}{dr} = S(r)H_l(r,r_e)+rKe_l\delta(r-r_e) \,.
+\end{equation}
+Multiplying the SODE for the perturbed DSV from the left with $H_l^T(r,r_e)\Sigma$ and multiplying the SODE for the Green function from the left by $\delta w^T\Sigma$, we find
+\begin{eqnarray}
+H_l^T(r,r_e)\Sigma\frac{d}{dr}\delta w(r) & = & H_l^T(r,r_e)\Sigma S(r)\delta w(r) +H_l^T(r,r_e)\Sigma\delta S(r) w(r) \nonumber \\
+\delta w(r)^T\Sigma\frac{dH_l(r,r_e)}{dr} & = & \delta w(r)^T\Sigma S(r)H_l(r,r_e)+\delta w(r)^T\Sigma Kre_l\delta(r-r_e) \,.
+\end{eqnarray}
+On subtraction of the two equations, the first term on the right hand side drops out because of the symmetry of $\Sigma S$ and we get
+\begin{equation}
+H_l^T(r,r_e)\Sigma\frac{d}{dr}\delta w(r)-\delta w(r)^T\Sigma\frac{dH_l(r,r_e)}{dr} = H_l^T(r,r_e)\Sigma\delta S(r) w(r) - \delta w(r)^T\Sigma Kre_l\delta(r-r_e) \,.
+\end{equation}
+The term on the left hand side is equal to
+\begin{equation}
+\frac{d}{dr}\left(H_l^T(r,r_e)\Sigma\delta w(r)\right)
+\end{equation}
+and after integration over radius we find
+\begin{equation}
+\sum_d\left[H_l^T(r_d,r_e)\Sigma\delta w(r_d)\right]^-_+ = \int H_l^T(r,r_e)\Sigma\delta S(r) w(r)\,dr - \delta w(r_e)^T\Sigma Kr_e e_l \,,
+\end{equation}
+or resolved for $\delta w(r_e)$:
+\begin{equation}
+\delta w(r_e)^T\Sigma Kr_e e_l = \sum_d\left[H_l^T(r_d,r_e)\Sigma\delta w(r_d)\right]^+_- +\int H_l^T(r,r_e)\Sigma\delta S(r) w(r)\,dr \,.
+\end{equation}
+The first term on the right hand side is the jump of the quantity in brackets at an internal discontinuity at $r_d$. At this stage of the derivation, we go back to the original Green funtion $G_l(r,r_e)$ and DSV $y(r)$:
+\begin{equation}
+r_e^2\delta y(r_e)K^T\Sigma K e_l = \sum_d\left[r_d^2G_l^T(r_d,r_e)K^T\Sigma K\delta y(r_d)\right]^+_-
++\int r^2G_l^T(r,r_e)K^T\Sigma K \delta A(r)y(r)\,dr \,.
+\end{equation}
+With the reciprocity relation
+\begin{equation}
+r^2G_l^T(r,r_e)K^T\Sigma K e_k=r_e^2 G_k^T(r_e,r)K^T\Sigma K e_l
+\end{equation}
+we can write
+\begin{eqnarray}
+r^2G_l^T(r,r_e)K^T\Sigma K\delta A(r)y(r) & = & r_e^2G_l^T(r,r_e)K^T\Sigma K e_k(\delta A(r) y(r))_k \nonumber \\
+& = & r_e^2G_k^T(r_e,r)(\delta A(r) y(r))_k K^T\Sigma K e_l
+\end{eqnarray}
+and with a similar relation for the jump term, we end up with
+\begin{eqnarray}
+r_e^2\delta y(r_e)^T K^T\Sigma K e_l & = & \sum_d\left[r_e^2G_k^T(r_e,r_d)\delta y(r_d)_k K^T\Sigma K e_l\right]^+_- \nonumber \\
+& & +\int r_e^2 G_k^T(r_e,r)(\delta A(r) y(r))_k K^T\Sigma K e_l\,dr
+\end{eqnarray}
+Dropping out $r_e^2 K^T\Sigma K e_l$ we get
+\begin{equation}
+\delta y(r_e) = \sum_d\left[G_k^T(r_e,r_d)\delta y(r_d)_k\right]^+_- +\int G_k(r_e,r)(\delta A(r) y(r))_k \,dr \,.
+\end{equation}
+From the derivation above, however, we know that
+\begin{equation}
+\delta w^+(r_d)-\delta w^-(r_d)=h(S^-(r_d)w^-(r_d)-S^+(r_d)w^+(r_d)) 
+\end{equation}
+and expressed with the original DSV $y$ and system matrix $A$, we find
+\begin{eqnarray}
+\delta y^+(r_d)-\delta y^-(r_d) & = & h(A^-(r_d)y^-(r_d)-A^+(r_d)y^+(r_d)) \nonumber \\
+& = & -h\left[A(r_d)\right]^+_- y(r_d) \,.
+\end{eqnarray}
+Inserting this above, the final result is
+\begin{equation}
+\delta y(r_e) = -\sum_d h_d G_k^T(r_e,r_d)\left(\left[A(r_d)\right]^+_- y(r_d)\right)_k +\int G_k(r_e,r)(\delta A(r) y(r))_k \,dr \,.
+\end{equation}
+%
+Note, the terms $G_k(r_e,r_d)$ and $y(r_d)$ could be pulled out of the jump brackets because of their being continuous across any solid-solid interface.
+
+Using this equation, we can easily compute Frechet derivatives of the DSV with respect to the model parameters and displacements of interfaces. The only thing we need to calculate is the change of the system matrix and basis Green functions for a source at the receiver. In the computer code Frechet kernels $K(r)$ are defined such that
+\begin{equation}
+\delta y(r_e) = \sum_d h_d K_d(r_d) + \int K_m(r) \frac{\delta m}{m} dr \,.
+\end{equation}
+By the way, it can be shown by differentiating the reciprocity relation that the Green function $G_k(r_e,r)$ is a solution of the following SODE:
+\begin{equation}
+\frac{dG_k(r_e,r)}{dr}=-A^T(r)G_k(r_e,r)-e_k\delta(r_e-r) \,.
+\end{equation}
+%
+\subsection{Fluid-solid interfaces}
+%
+To compute the effect of a displacement of a fluid-solid interface on the DSV, we go back to the equation
+\begin{equation}
+\delta y(r_e) = \sum_d\left[G_k^T(r_e,r_d)\delta y(r_d)_k\right]^+_- +\int G_k(r_e,r)(\delta A(r) y(r))_k \,dr \,.
+\end{equation}
+and consider the first term on the right hand side. Let us assume that the fluid layer is the top layer associated with the $+$-superscrit. Since the DSV has only two components in the fluid medium, the index $k$ runs from 1 to 2 for the terms with th $+$-superscript. If the receiver $r_e$ is in the solid part of the medium, we need to consider four components of $\delta y$ and $G_k(r_e,r_d)$. If it is in the fluid medium, we only need to consider the first two components. Moreover, since the first two components of the perturbed DSV must be continuous at a fluid-solid boundary, we can write
+\begin{equation}
+\delta y^+_\sigma -\delta y^-_\sigma = h(A^-_{\sigma k} y^-_k -A^+_{\sigma\nu} y^+_\nu)
+\end{equation}
+with the convention that Greek indices run only from 1  to 2.
+In addition, the 4-th component of the perturbed DSV in the solid layer must vanish at the fluid-solid boundary. Hence,
+\begin{equation}
+\delta y_4^-=-y_4^- -hA_{4k}^- y_k^- = -hA_{4k}^- y_k^- \,.
+\end{equation}
+We do not have and luckily do not need a condition for $\delta y_3$, because by virtue of the reciprocity principle the $G_3^i(r_e,r_d)$ are proportional to the $G_{l(i)}^4(r_d,r_e)$ where $l$ is some index which depends on the choice of $i$. But the fourth component of any basis Green function with source at $r_e$ at a fluid solid boundary must vanish. Taking everything together, the jump term takes the form
+\begin{equation}
+\left[G_k^T(r_e,r_d)\delta y_k\right]^+_-   =  G_\sigma^{T+}(r_e,r_d)\delta y_\sigma^+ - G_\sigma^{T-}(r_e,r_d)\delta y_\sigma^- - G_4^{T-}(r_e,r_d)\delta y_4^- \,.
+\end{equation}
+What about the continuity of $G_\sigma(r_e,r_d)$ at the fluid-solid boundary? The basis Green functions $G_1^i(r_e,r_d)$ are associated with $G_{l(i)}^2(r_d,r_e)$ which are continuous. Analogously, the basis Green functions $G_2^i(r_e,r_d)$ are associated with $G_{l(i)}^1(r_d,r_e)$ which are continuous, too. Thus, we can write
+\begin{equation}
+\left[G_k^T(r_e,r_d)\delta y_k\right]^+_-   =  G_\sigma^{T}(r_e,r_d)\left[\delta y_\sigma\right]^+_- - G_4^{T-}(r_e,r_d)\delta y_4^- \,.
+\end{equation}
+We can insert now the conditions for the $\delta y$:
+\begin{eqnarray}
+\left[G_k^T(r_e,r_d)\delta y_k\right]^+_-  & = & hG_\sigma^{T}(r_e,r_d)\left(A^-_{\sigma k} y^-_k -A^+_{\sigma\nu} y^+_\nu\right) + h G_4^{T-}(r_e,r_d) A_{4k}^- y_k^- \nonumber \\
+& = & hG_\sigma^{T}(r_e,r_d)\left(A^-_{\sigma\nu} y^-_\nu -A^+_{\sigma\nu} y^+_\nu\right) + hG_\sigma^{T}(r_e,r_d)A^-_{\sigma 3}y^-_3 + h G_4^{T-}(r_e,r_d) A_{4k}^- y_k^- \nonumber \\
+& = & -hG_\sigma^{T}(r_e,r_d)[A_{\sigma\nu}]^+_- y_\nu + hG_\sigma^{T}(r_e,r_d)A^-_{\sigma 3}y^-_3 + h G_4^{T-}(r_e,r_d) A_{4k}^- y_k^-
+\end{eqnarray}
+In a computer code, we would like to just evaluate the jump of the matrix $A$ across the discontinuity without caring about the kind of boundary. If we agree to expand the 2x2-matrix $A^+$ to a 4x4-matrix by filling in zeros and if we agree to always take the DSV and the Green function in the solid part of the medium, and if we trust the Green code to produce a vanishing $G_3(r_e,r_d)$ and $y_4$ at a fluid-solid boundary, we could write
+\begin{eqnarray}
+\left[G_k^T(r_e,r_d)\delta y_k\right]^+_-  & = & -hG_\sigma^{T}(r_e,r_d)[A_{\sigma\nu}]^+_- y_\nu^- - hG_\sigma^{T}(r_e,r_d)[A^-_{\sigma 3}]^+_- y^-_3 - h G_4^{T-}(r_e,r_d) [A_{4k}]^+_- y_k^- \nonumber \\
+& = & -hG_k^{T-}(r_e,r_d)[A_{kl}]^+_- y_l^- \,,
+\end{eqnarray}
+which is identical to the formula for the solid-solid interface.
+%
+\section{Transition of the DSV from a fluid to a solid region}
+%
+When constructing the Green function for a source in a fluid region the solution must be correctly continued into the solid part of the medium. After integrating minors from top to the source and from the bottom to the source, in the fluid layer we have one basis solution above the source and one basis solution below the source. There is only one because we arrive from below the fluid layer with two basis solutions in the solid region which is reduced however to one because of the condition that the tangential stress $S$ vanishes there. The two constants involved are determined by the junp at the source. Thus, we know $w_1=U$ and $w_2=R$ at the bottom of the fluid layer. Let us denote the two basis solutions in the solid layer by $v_1$ and $v_2$. Then,
+\begin{eqnarray}
+w_1(r_w)=c_1 v_1^1(r_w) + c_2 v_2^1(r_w) \nonumber \\
+w_2(r_w)=c_1 v_1^2(r_w) + c_2 v_2^2(r_w) \,.
+\end{eqnarray}
+The solution of this system is
+\begin{eqnarray}
+c_1 = \frac{1}{m_{12}(r_w)}( v_2^2(r_w) w_1(r_w) - v_2^1(r_w) w_2(r_w)) \nonumber \\
+c_2 = \frac{1}{m_{12}(r_w)}(-v_1^2(r_w) w_1(r_w) + v_1^1(r_w) w_2(r_w))
+\end{eqnarray}
+with $m_{12}=v_1^1 v_2^2 - v_2^1 v_1^2$. The DSV in the solid region is now
+\begin{eqnarray}
+y(r) & = & \frac{1}{m_{12}(r_w)}\left[( v_2^2(r_w) w_1(r_w) - v_2^1(r_w) w_2(r_w))v_1(r) \right. \nonumber \\
+& & +\left.(-v_1^2(r_w) w_1(r_w) + v_1^1(r_w) w_2(r_w)) v_2(r)\right] \nonumber \\
+& = & \frac{1}{m_{12}(r_w)}\left[w_1(r_w)(v_2^2(r_w)v_1(r)-v_1^2(r_w)v_2(r))\right. \nonumber \\
+& & + \left. w_2(r_w)(-v_2^1(r_w)v_1(r)+v_1^1(r_w)v_2(r))\right]
+\end{eqnarray}
+This can not be evaluated stably because second order minors of basis solutions are calculated. Instead, we propagate the basis solutions at $r_w$ to $r$ using the propagator matrix:
+\begin{equation}
+v_i^j(r_w)=P_{jn}(r_w,r)v_i^n(r)
+\end{equation}
+and obtain 
+\begin{eqnarray}
+y_i(r) & = & \frac{1}{m_{12}(r_w)}\left[w_1(r_w)P_{2n}(r_w,r)(v_2^n(r)v_1^i(r)-v_1^n(r)v_2^i(r))\right. \nonumber \\
+& & + \left. w_2(r_w)P_{1n}(r_w,r)(-v_2^n(r)v_1^i(r)+v_1^n(r)v_2^i(r))\right] \nonumber \\
+& = & \frac{1}{m_{12}(r_w)}\left[w_1(r_w)P_{2n}(r_w,r) m_{in}(r) -w_2(r_w)P_{1n}(r_w,r) m_{in}(r)\right] \nonumber \\
+& = & \frac{1}{m_{12}(r_w)}m_{in}(r)\left[P_{1n}(r_w,r)(-w_2(r_w))+P_{2n}(r_w,r)w_1(r_w)\right] \,.
+\end{eqnarray}
+Defining a vector 
+\begin{equation}
+b_n(r)=P_{1n}(r_w,r)(-w_2(r_w))+P_{2n}(r_w,r)w_1(r_w)
+\end{equation}
+which is a solution of the SODE
+\begin{equation}
+\frac{db}{dr}=-A^T(r) b(r)
+\end{equation}
+and can be calculated by integrating this system with initial values 
+\begin{equation}
+b(r_w)=(-w_2(r_w),w_1(r_w))
+\end{equation}
+we finally get
+\begin{equation}
+y_i(r)=\frac{1}{m_{12}(r_w)}m_{in}(r) b_n(r) \,.
+\end{equation}
+%
+\section{Transition of the DSV from solid to fluid}
+%
+If the source is in the solid region below the fluid layer, we have the minors above the source. To get the solution in the solid region, we integrate the neagtive transposed SODE up the bottom of the water layer. That is, we know the DSV $y^-(r_w)$ the first two components of which are continuous across the fluid-solid interface. Thus, we know that
+\begin{equation}
+y_1^-(r_w)=aw_1(r_w), \quad y_2^-(r_w)=aw_2(r_w)
+\end{equation}
+and therefore the solution in the water layer is
+\begin{equation}
+y(r)=aw(r)=\frac{y^-_1(r_w)}{w_1(r_w)} w(r) = \frac{y^-_2(r_w)}{w_2(r_w)} w(r) \,.
+\end{equation}
+
+\end{document}

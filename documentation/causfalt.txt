@@ -1,0 +1,56 @@
+Kausale Faltung:
+
+1. Schritt: f(1)
+
+5 4 3 2 1
+        1 2 3 4 5 6 7 8 9 0 1 2 3 4 5     f(1) = h(1)*d(1)
+
+2. Schritt: f(2)
+
+5 4 3 2 1
+      1 2 3 4 5 6 7 8 9 0 1 2 3 4 5       f(2) = h(2)*d(1) + h(1)*d(2)
+
+5. Schritt: f(5)
+
+    5 4 3 2 1
+    1 2 3 4 5 6 7 8 9 0 1 2 3 4 5         f(5) = h(5)*d(1) + h(4)*d(2) + h(3)*d(3) + h(2)*d(4) + h(1)*d(5)
+
+letzer Schritt:
+
+                        5 4 3 2 1
+    1 2 3 4 5 6 7 8 9 0 1 2 3 4 5         f(15) = h(5)*d(11) + h(4)*d(12) + h(3)*d(13) + h(2)*d(14) + h(1)*d(15)
+
+allgemein:
+
+für k = 1,max(nh,nd)
+f(k) = sum_(j=1,min(k,nh)) h_j * d(k-j+1)           wenn d länger als h
+f(k) = sum_(j=1,min(k,nd)) d_j * h(k-j+1)           wenn h langer als d
+
+Inversion: gegeben f und d, gesucht h mit nh < nd
+
+f(1)     d(1)     0     0     0     0            h1
+f(2)     d(2)   d(1)    0     0     0            h2
+...                                              h3
+...                                              h4
+f(5)     d(5)   d(4)  d(3)  d(2)  d(1)           h5
+...
+f(15)    d(15)  d(14) d(13) d(12) d(11)
+
+Inversion: gegeben f und d, gesucht h mit nh > nd
+
+f(1)     d(1)     0     0      0     0     0     0           h1
+f(2)     d(2)   d(1)    0      0     0     0     0           h2
+...                                                          h3
+...                                                          h4
+f(5)     d(5)   d(4)   d(3)   d(2)  d(1)   0     0           h5
+                                                             h6
+                                                             h7
+
+
+  gam  0    0   0    0    0
+ -1    2   -1   0    0    0
+  0   -1    2  -1    0    0    / sigsm /dt^2
+  0    0   -1   2   -1    0
+  0    0    0  -1    2   -1
+  0    0    0   0    0   gam
+
