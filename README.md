@@ -18,6 +18,12 @@ Contributors
 ------------
 Wolfgang Friederich, Jörg Dalkolmo, Thomas Möller, Kasper D. Fischer
 
+--------------
+Latest release
+--------------
+
+[![DOI](https://zenodo.org/badge/841969358.svg)](https://zenodo.org/doi/10.5281/zenodo.13321290)
+
 ----------
 References
 ----------
